@@ -142,7 +142,7 @@ def next_player(prev_player, players):
 		return prev_player + 1
 
 
-def hit(bob, player_turn, rand_player, card_decks, cards, players):
+def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 	player = str(player_turn).split("'")[1]
 	if "\\" in player:
 		player = player.split("\\")[0]
