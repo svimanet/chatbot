@@ -51,7 +51,7 @@ def blackjack(bob, nick, messages):
 
 		while playing:
 			player_turn = players[rand_player]
-			hit(bob, player_turn, rand_player, card_decks, cards, players)
+			hit(bob, player_turn, rand_player, card_decks, cards, players, playing)
 			rand_player = next_player(rand_player, players)
 			turns += 1
 
@@ -91,6 +91,7 @@ def round_it_up(bot1, bot2, players, card_decks, bob):
 			"""print lost"""
 			bob.send_channel(lost)
 
+
 def count_points(card_decks, player):
 	cards = len(card_decks[player])
 	points = 0
@@ -107,6 +108,7 @@ def count_points(card_decks, player):
 
 		points += card
 	return points
+
 
 def check_bust(points):
 	if points > 21:
@@ -132,6 +134,7 @@ def check_picture(card):
 	else:
 		return int(card)
 	
+
 def next_player(prev_player, players):
 	if prev_player == len(players)-1:
 		return 0
@@ -140,7 +143,6 @@ def next_player(prev_player, players):
 
 
 def hit(bob, player_turn, rand_player, card_decks, cards, players):
-
 	player = str(player_turn).split("'")[1]
 	if "\\" in player:
 		player = player.split("\\")[0]
@@ -150,7 +152,9 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players):
 	action = bob.response(player).lower()
 
 	if "stop" in action:
-		return false
+		bob.send_channel("Stopped.")
+		playing = False
+
 
 	if "stand" in action:
 		stand = True
@@ -212,6 +216,7 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players):
 		"""print  valid_command"""
 		bob.send_channel(valid_command)
 		hit(bob, player_turn, rand_player, card_decks, cards, players)
+
 
 def after_draw(card_decks, player_turn, players, player, rand_player, cards, bob):
 	if "\\" in player:

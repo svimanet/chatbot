@@ -21,12 +21,14 @@ class I_Bob(object):
 		self.s.connect((self.server, self.port))
 		self.ircsock = ssl.wrap_socket(self.s)
 
+
 	# Method for the bot to send a public message to the channel.
 	# Channel is either IRC channel or Twitch streamer channel, both work.
 	def send_channel(self, message):
 		""" Used to send messages in channels to avoid code duplication.""" 
 		self.ircsock.send("PRIVMSG %s :%s\r\n" %(self.channel, message))
 		print("PRIVMSG %s :%s\r\n" %(self.channel, message))
+
 	
 	# Method for the bot to send a private message in IRC to a user.
 	# Currently not supported for Twitch chat, will fix one day.
@@ -37,6 +39,7 @@ class I_Bob(object):
 		else:
 			self.ircsock.send("PRIVMSG %s :%s\n" %(nick, message))
 			print("PRIVMSG %s :%s\r\n" %(nick, message))
+
 
 	# if the server says PING, The bot will respond PONG + the relevant data.
 	# Also works for Twich bot
@@ -79,32 +82,28 @@ class I_Bob(object):
 			# Because the whisper function for twitch is broken atm (in the bot)
 			if "!help" in message_start:
 				if self.type == "Twitch":
-					self.send_channel("#       List of commands")
-					self.send_channel("# 'sup'   -  I will reply")
-					self.send_channel("# p1 :'!play p2 p3 p4 p5 p6' - Blackjack <2-6> players")
-					self.send_channel("# '!stop' -  Force quit blackjack")
-					self.send_channel("# '!up'   -  Guess nigga")
+					print("Twitch has fucked the protocols")
+				
 				else:
-					self.send_priv(nick, "#  %s the prodigy's list of commands.")
-					self.send_priv(nick, "# 'sup' - I will reply")
+					self.send_priv(nick, "# List of commands.")
+					self.send_priv(nick, "# sup - ?")
 					self.send_priv(nick, "# p1 :'!play p2 p3 p4 p5 p6' Blackjack <2-6> players")
-					self.send_priv(nick, "# '!up' - Twitch only command.")
+					self.send_priv(nick, "# stop - force quit Blackjack")
 
 			if "sup" in message_start:
 				self.send_channel("/me is beating the meat to a picture of %s's mother." %nick)
 
 			if "!play" in message_start:
 
-				self.send_channel("Fucking time for some blackjack and hookers.")
+				self.send_channel("Time for some blackjack and hookers.")
 				message = msg.split("!play")[1].lower()
 				if nick in message:
 					self.send_channel(" # %s dont inlcude your own name, you are automatically in the game if you start it. <p1>:!play <p2> <p3>")
 				else:
 					functions.blackjack(self, nick, message)
 
-			if "!up" in message_start:
-				self.send_channel("Yes, I'm up :) Thank you for asking %s" %nick)
 			
+
 	# while loop #3. Because thats just how I roll.
 	# see functions.py, This is where th bot awaits a player action
 	def response(self, nick):
