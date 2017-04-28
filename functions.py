@@ -185,7 +185,7 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 			gave_card = " # Gave %s a %s. => %s, %s, %s, %s, %s" % (player, new_card, card1, card2, card3, card4, new_card)
 			"""print gave_card"""
 			bob.send_channel(gave_card)
-			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob)
+			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing)
 
 		elif len(prev_cards.split("'"))==11:
 			card3 = prev_cards.split("'")[5]
@@ -196,29 +196,29 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 			gave_card = " # Gave %s a %s. => %s, %s, %s, %s, %s, %s " % (player, new_card, card1, card2, card3, card4, card5, new_card)
 			"""print gave_card"""
 			bob.send_channel(gave_card)
-			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob)
+			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing)
 
 		elif len(prev_cards.split("'"))>11:
 			gave_card = " # Maker was to lazy, so you cant draw more cards, sry not sry."
 			"""print gave_card"""
 			bob.send_channel(gave_card)
-			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob)
+			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing)
 
 		else:
 			card_decks[rand_player] = card1, card2, new_card
 			gave_card = " # Gave %s a %s. => %s, %s, %s" % (player, new_card, card1, card2, new_card)
 			"""print gave_card"""
 			bob.send_channel(gave_card)
-			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob)
+			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing)
 
 	else:
 		valid_command=(" # Not a valid command")
 		"""print  valid_command"""
 		bob.send_channel(valid_command)
-		hit(bob, player_turn, rand_player, card_decks, cards, players)
+		hit(bob, player_turn, rand_player, card_decks, cards, players, playing)
 
 
-def after_draw(card_decks, player_turn, players, player, rand_player, cards, bob):
+def after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing):
 	if "\\" in player:
 		player = player.split("\\")[0]
 	points = count_points(card_decks, rand_player)
@@ -236,7 +236,7 @@ def after_draw(card_decks, player_turn, players, player, rand_player, cards, bob
 		bob.send_channel(winning)
 
 	else:
-		hit(bob, player_turn, rand_player, card_decks, cards, players)
+		hit(bob, player_turn, rand_player, card_decks, cards, players, playing)
 
 
 
