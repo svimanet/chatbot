@@ -87,7 +87,7 @@ class I_Bob(object):
 				else:
 					self.send_priv(nick, "# List of commands.")
 					self.send_priv(nick, "# sup - ?")
-					self.send_priv(nick, "# p1 :'!play p2 p3 p4 p5 p6' Blackjack <2-6> players")
+					self.send_priv(nick, "# !play - Blackjack <2-6> players [p1: !play p2 p3 p4 p5 p6")
 					self.send_priv(nick, "# stop - force quit Blackjack")
 
 			if "sup" in message_start:

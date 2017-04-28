@@ -2,7 +2,7 @@ import sys
 import random
 
 # ############################################################ #
-# A method that lets 2-6 players in the chat play blackjack.   #
+# A method that lets 1-6 players in the chat play blackjack.   #
 # ############################################################ #
 # Works but needs a few tweaks. Mainly letting the bot draw    #
 # if he has less than 16 points, insta blackjack on player 21  #
@@ -16,8 +16,8 @@ def blackjack(bob, nick, messages):
 	message = msg.rstrip().lstrip()
 	number = len(message.split(" "))
 
-	""" Checks if more than one player, makes list of players"""
-	if number > 1 and number <= 6:
+	# Checks if more than one player, makes list of players
+	if number >= 1 and number <= 6:
 		for x in range(len(message.split(" "))):
 
 			players.append([message.split(" ")[x]])
@@ -30,7 +30,7 @@ def blackjack(bob, nick, messages):
 		bot_cards.append(cards.pop())
 		bot_cards.append(cards.pop())
 		bot_cards_print = (" # My cards: x and %s" %bot_cards[0])
-		"""print(bot_cards_print)"""
+		# print(bot_cards_print)
 		bob.send_channel(bot_cards_print)
 
 		for x in range(number_players):
@@ -61,7 +61,7 @@ def blackjack(bob, nick, messages):
 		round_it_up(str(bot_cards[0]), str(bot_cards[1]), players, card_decks, bob)
 
 	else:
-		error=" # 2-6 players please. <p1>:!play <p2> <p3> <p4> <p5> <p6>"
+		error=" # 1-6 players please. <p1>:!play <p2> <p3> <p4> <p5> <p6>"
 		bob.send_channel(error)
 
 
@@ -99,8 +99,8 @@ def count_points(card_decks, player):
 	for x in range(cards):
 
 		card_obj = card_decks[player][x]
-		print " ______ "
-		print card_obj
+		# print " ______ "
+		# print card_obj
 		card_string = card_obj.split(" ")[0]
 		card = d.get(card_string, None)
 		if not card:
@@ -224,7 +224,7 @@ def after_draw(card_decks, player_turn, players, player, rand_player, cards, bob
 	points = count_points(card_decks, rand_player)
 	bust = check_bust(points)
 	twenty_one = check_21(points)
-
+	
 	if bust:
 		busting_nut = " # Bust! R.I.P %s with %s points." % (player, points)
 		"""print busting_nut"""
