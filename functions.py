@@ -175,7 +175,7 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 			gave_card = " # Gave %s a %s. => %s, %s, %s, %s" % (player, new_card, card1, card2, card3, new_card)
 			"""print gave_card"""
 			bob.send_channel(gave_card)
-			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob)
+			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing)
 
 		elif len(prev_cards.split("'"))==9:
 			card3 = prev_cards.split("'")[5]
