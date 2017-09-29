@@ -2,6 +2,7 @@ import json
 import socket
 import ssl
 import time
+import urban
 import random
 import functions
 
@@ -38,7 +39,7 @@ class I_Bob(object):
 	# if the server says PING, The bot will respond PONG + the relevant data.
 	# Also works for Twich bot
 	def ping_pong(self, data):
-		""" Makes sure the bot returns a PONG and data if the server PINGS."""
+		# Makes sure the bot returns a PONG and data if the server PINGS.
 		if "PING" in data:
 			pongData=data.split(":")[1]
 			self.ircsock.send("PONG "+pongData+"\r\n")
@@ -70,10 +71,8 @@ class I_Bob(object):
 
 			# Sends commadn list in priv msg
 			if "!help" in message_start:				
-				self.send_priv(nick, "# !play - Blackjack <1-6> players [p1: !play p2 p3 p4 p5 p6")
-
-			if "sup" in message_start:
-				self.send_channel("/me is beating the meat to a picture of %s's mother." %nick)
+				self.send_priv(nick, "# !play - Blackjack <1-6> players [p1: !play p2 p3 p4 p5 p6]")
+				self.send_priv(nick, "# !urban - Search for a urban dictionary term [!urban <term>]")
 
 			if "!play" in message_start:
 				message = msg.split("!play")[1].lower()
@@ -82,6 +81,17 @@ class I_Bob(object):
 				else:
 					functions.blackjack(self, nick, message)
 
+			if "!urban" in message_start:
+				if len(msg.split(" "))>1:
+					term = msg.split("n ")[1]
+					term = term.replace(" ", "+")
+					response = urban.urban(term)
+					self.send_channel("%s" %response)
+					self.send_channel("http://urbandictionary.com/define.php?term=%s" %term)
+				else:
+					response = urban.urban("foolish")
+					self.send_channel("%s" %response)
+					self.send_channel("http://urbandictionary.com/define.php?term=%s" %term)
 			
 
 	# while loop #3. Because thats just how I roll.
