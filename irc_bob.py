@@ -91,7 +91,7 @@ class I_Bob(object):
 				else:
 					response = urban.urban("foolish")
 					self.send_channel("Foolish - %s" %response)
-					self.send_channel("http://urbandictionary.com/define.php?term=%s" %term)
+					self.send_channel("http://urbandictionary.com/define.php?term=foolish")
 			
 
 	# while loop #3. Because thats just how I roll.
