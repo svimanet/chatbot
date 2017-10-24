@@ -83,7 +83,7 @@ class I_Bob(object):
 
 			if "!urban" in message_start:
 				if len(msg.split(" "))>1:
-					term = msg.split("n ")[1]
+					term = msg.split("!urban ")[1]
 					term = term.replace(" ", "+")
 					response = urban.urban(term)
 					self.send_channel("%s" %response)
