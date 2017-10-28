@@ -29,7 +29,7 @@ def blackjack(bob, nick, messages):
 		bot_cards = []
 		bot_cards.append(cards.pop())
 		bot_cards.append(cards.pop())
-		bot_cards_print = (" # My cards: x and %s" %bot_cards[0])
+		bot_cards_print = (" # My cards: x and {0}".format(bot_cards[0]))
 		# print(bot_cards_print)
 		bob.send_channel(bot_cards_print)
 
@@ -39,7 +39,7 @@ def blackjack(bob, nick, messages):
 			player = str(players[x]).split("'")[1]
 			card_decks[x] = card1, card2
 
-			cards_dealt = " # %s's cards: %s, %s" %(player.split("\\")[0], card1, card2)
+			cards_dealt = " # {0}'s cards: {1}, {2}".format(player.split("\\")[0], card1, card2)
 			"""print(cards_dealt)"""
 			bob.send_channel(cards_dealt)
 			""" CARDS DEALT """
@@ -70,7 +70,7 @@ def round_it_up(bot1, bot2, players, card_decks, bob):
 	card2 = check_picture(bot2.split(" ")[0])
 	total = card1 + card2
 
-	bot_score = " # My cards: %s and %s. Totaling %s." %(card1, card2, total)
+	bot_score = " # My cards: {0} and {1}. Totaling {2}.".format(card1, card2, total)
 	bob.send_channel(bot_score)
 
 	for x in range(len(players)):
@@ -81,8 +81,8 @@ def round_it_up(bot1, bot2, players, card_decks, bob):
 
 		points = count_points(card_decks, x)
 
-		lost = " # LOSS! %s lost with %s points." % (player, str(points))
-		won = " # WIN! %s beat me with %s points." % (player, str(points))
+		lost = " # LOSS! {0} lost with {1} points.".format(player, str(points))
+		won = " # WIN! {0} beat me with {1} points.".format(player, str(points))
 
 		if points > total and points<=21:
 			"""print won"""
@@ -147,7 +147,7 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 	if "\\" in player:
 		player = player.split("\\")[0]
 
-	action_q = " # !hit or !stand, %s?" %player
+	action_q = " # !hit or !stand, {0}?".format(player)
 	bob.send_channel(action_q)
 	action = bob.response(player).lower()
 
@@ -158,7 +158,7 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 
 	if "stand" in action:
 		stand = True
-		standing = " # %s is standing."%player
+		standing = " # {0} is standing.".format(player)
 		"""print standing"""
 		bob.send_channel(standing)
 
@@ -172,7 +172,7 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 			card3 = prev_cards.split("'")[5]
 
 			card_decks[rand_player] = card1, card2, card3, new_card
-			gave_card = " # Gave %s a %s. => %s, %s, %s, %s" % (player, new_card, card1, card2, card3, new_card)
+			gave_card = " # Gave {0} a {1}. => {2}, {3}, {4}, {5}".format(player, new_card, card1, card2, card3, new_card)
 			"""print gave_card"""
 			bob.send_channel(gave_card)
 			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing)
@@ -182,7 +182,7 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 			card4 = prev_cards.split("'")[7]
 
 			card_decks[rand_player] = card1, card2, card3, card4, new_card
-			gave_card = " # Gave %s a %s. => %s, %s, %s, %s, %s" % (player, new_card, card1, card2, card3, card4, new_card)
+			gave_card = " # Gave {0} a {1}. => {2}, {3}, {4}, {5}, {6}".format(player, new_card, card1, card2, card3, card4, new_card)
 			"""print gave_card"""
 			bob.send_channel(gave_card)
 			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing)
@@ -193,7 +193,7 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 			card5 = prev_cards.split("'")[9]
 
 			card_decks[rand_player] = card1, card2, card3, card4, card5, new_card
-			gave_card = " # Gave %s a %s. => %s, %s, %s, %s, %s, %s " % (player, new_card, card1, card2, card3, card4, card5, new_card)
+			gave_card = " # Gave {0} a {1}. => {2}, {3}, {4}, {5}, {6}, {7} " % (player, new_card, card1, card2, card3, card4, card5, new_card)
 			"""print gave_card"""
 			bob.send_channel(gave_card)
 			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing)
@@ -206,7 +206,7 @@ def hit(bob, player_turn, rand_player, card_decks, cards, players, playing):
 
 		else:
 			card_decks[rand_player] = card1, card2, new_card
-			gave_card = " # Gave %s a %s. => %s, %s, %s" % (player, new_card, card1, card2, new_card)
+			gave_card = " # Gave {0} a {1}. => {2}, {3}, {4}".format(player, new_card, card1, card2, new_card)
 			"""print gave_card"""
 			bob.send_channel(gave_card)
 			after_draw(card_decks, player_turn, players, player, rand_player, cards, bob, playing)
@@ -226,12 +226,12 @@ def after_draw(card_decks, player_turn, players, player, rand_player, cards, bob
 	twenty_one = check_21(points)
 	
 	if bust:
-		busting_nut = " # Bust! R.I.P %s with %s points." % (player, points)
+		busting_nut = " # Bust! R.I.P {0} with {1} points.".format(player, points)
 		"""print busting_nut"""
 		bob.send_channel(busting_nut)
 
 	elif twenty_one:
-		winning = " # 21! %s got 21 points." % player
+		winning = " # 21! {0} got 21 points.".format(player)
 		"""print winning"""
 		bob.send_channel(winning)
 
