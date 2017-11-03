@@ -24,5 +24,4 @@ def urban(term):
 		return string
 	
 	except Exception as e:
-		raise e
 		return "Shit the bed, contact Maker!"
