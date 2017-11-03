@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 import lxml.html
-import urllib2
+import urllib.request
 
 def urban(term):
-	url = "http://urbandictionary.com/define.php?term=%s" %term
-	resource = BeautifulSoup(urllib2.urlopen(url), "lxml")
+	url = "http://urbandictionary.com/define.php?term={0}".format(term)
+	resource = BeautifulSoup(urllib.request.urlopen(url), "lxml")
 	content = resource.find('div', {"class":"meaning"}).text.strip()
 	strlen = len(content.split())
 	string = content
@@ -18,5 +18,5 @@ def urban(term):
 				splits += 1
 
 		string += "."
-	print string
+	print(string)
 	return string

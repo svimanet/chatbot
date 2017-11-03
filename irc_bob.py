@@ -21,19 +21,23 @@ class I_Bob(object):
 		self.ircsock = ssl.wrap_socket(self.s)
 
 
+	# sends message to socket
+	def send_socket(self, message):
+		self.ircsock.send(message.encode("utf-8"))
+		print(message)
+
+
 	# Method for the bot to send a public message to the channel.
 	# Channel is either IRC channel or Twitch streamer channel, both work.
 	def send_channel(self, message):
 		#Used to send messages in channels to avoid code duplication.
-		self.ircsock.send("PRIVMSG %s :%s\r\n" %(self.channel, message))
-		print("PRIVMSG %s :%s\r\n" %(self.channel, message))
+		self.send_socket("PRIVMSG {0} :{1}\r\n".format(self.channel, message))
 
 	
 	# Method for the bot to send a private message in IRC to a user.
 	# Currently not supported for Twitch chat, will fix one day.
 	def send_priv(self, nick, message):
-		self.ircsock.send("PRIVMSG %s :%s\n" %(nick, message))
-		print("PRIVMSG %s :%s\r\n" %(nick, message))
+		self.send_socket("PRIVMSG {0} :{1}\n".format(nick, message))
 
 
 	# if the server says PING, The bot will respond PONG + the relevant data.
@@ -42,9 +46,8 @@ class I_Bob(object):
 		# Makes sure the bot returns a PONG and data if the server PINGS.
 		if "PING" in data:
 			pongData=data.split(":")[1]
-			self.ircsock.send("PONG "+pongData+"\r\n")
+			self.send_socket("PONG {0}\r\n".format(pongData))
 			print(data)
-			print("PONG "+pongData+"\r\n")
 
 
 	# Joins a channel after a ceretain ID id recieved, to ensure it doenst connect too soon.
@@ -53,8 +56,7 @@ class I_Bob(object):
 	# This can fail if the server has specified anything but default.
 	def join_channel(self, data):
 		if "266" in data:
-			print("JOIN %s\r\n" %self.channel)
-			self.ircsock.send("JOIN %s\r\n" %self.channel)
+			self.send_socket("JOIN {0}\r\n".format(self.channel))
 
 			
 	# Method for the bot to sort between user messages and server messages.
@@ -77,7 +79,7 @@ class I_Bob(object):
 			if "!play" in message_start:
 				message = msg.split("!play")[1].lower()
 				if nick in message:
-					self.send_channel(" # %s dont inlcude your own name, you are automatically in the game if you start it. <p1>:!play <p2> <p3>")
+					self.send_channel(" # {0} dont inlcude your own name, you are automatically in the game if you start it. <p1>:!play <p2> <p3>".format(nick))
 				else:
 					functions.blackjack(self, nick, message)
 
@@ -86,11 +88,11 @@ class I_Bob(object):
 					term = msg.split("!urban ")[1]
 					term = term.replace(" ", "+")
 					response = urban.urban(term)
-					self.send_channel("%s" %response)
+					self.send_channel("{0}".format(response))
 					self.send_channel("http://urbandictionary.com/define.php?term=%s" %term)
 				else:
 					response = urban.urban("foolish")
-					self.send_channel("Foolish - %s" %response)
+					self.send_channel("Foolish - {0}".format(response))
 					self.send_channel("http://urbandictionary.com/define.php?term=foolish")
 			
 
@@ -98,7 +100,7 @@ class I_Bob(object):
 	# see functions.py, This is where th bot awaits a player action
 	def response(self, nick):
 		while True:
-			response = self.ircsock.recv(1024)
+			response = self.ircsock.recv(1024).decode('utf-8')
 			self.ping_pong(response)
 			if "PRIVMSG" in response:
 
@@ -115,11 +117,11 @@ class I_Bob(object):
 	# Here the stuff happens.
 	def run(self):
 		navn = self.name
-		self.ircsock.send("USER %s %s %s %s\r\n" % (navn, navn, navn, navn))
-		self.ircsock.send("NICK %s\n" % navn)
+		self.send_socket("USER {0} {0} {0} {0}\r\n".format(navn))
+		self.send_socket("NICK {0}\n".format(navn))
 
 		while True:
-			data = self.ircsock.recv(1024)
+			data = self.ircsock.recv(1024).decode('utf-8')
 			print(data)
 
 			self.join_channel(data)
