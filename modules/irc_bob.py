@@ -99,7 +99,7 @@ class I_Bob(object):
 				if len(msg.split(" "))>1:
 					term = msg.split("!define ")[1]
 					term = term.replace(" ", "-")
-					response = urban.define(term)
+					response = str(urban.define(term))
 					content = response.split("&+")[0]
 					example = response.split("&+")[1]
 					self.send_priv(nick, "{0}".format(content))
