@@ -70,6 +70,7 @@ class I_Bob(object):
 			nick = one.split("!")[0].lower()
 			msg = data.split(":")[2].lower()
 			message_start = msg.split(" ")[0].lower()
+			if_channel = str("PRIVMSG {}".format(self.channel))
 
 			# Sends commadn list in priv msg
 			if "!help" in message_start:				
@@ -88,25 +89,44 @@ class I_Bob(object):
 					term = msg.split("!urban ")[1]
 					term = term.replace(" ", "+")
 					response = urban.urban(term)
-					self.send_channel("{0}".format(response))
-					self.send_channel("http://urbandictionary.com/define.php?term=%s" %term)
-				else:
+
+					if if_channel in data:
+						self.send_channel("{0}".format(response))
+						self.send_channel("http://urbandictionary.com/define.php?term=%s" %term)
+					else:
+						self.send_priv(nick, "{0}".format(response))
+						self.send_priv(nick, "http://urbandictionary.com/define.php?term=%s" %term)
+
+				else:	
 					response = urban.urban("foolish")
-					self.send_channel("Foolish - {0}".format(response))
-					self.send_channel("http://urbandictionary.com/define.php?term=foolish")
+					if if_channel in data:
+						self.send_channel("Foolish - {0}".format(response))
+						self.send_channel("http://urbandictionary.com/define.php?term=foolish")
+					else:
+						self.send_priv(nick, "Foolish - {0}".format(response))
+						self.send_priv(nick, "http://urbandictionary.com/define.php?term=foolish")
 			
+
 			if "!define" in message_start:
 				if len(msg.split(" "))>1:
 					term = msg.split("!define ")[1]
 					term = term.replace(" ", "-")
-					response = urban.define(term)
+					response = str(urban.define(term))
 					content = response.split("&+")[0]
 					example = response.split("&+")[1]
-					self.send_priv(nick, "{0}".format(content))
-					self.send_priv(nick, "{0}".format(example))
-					self.send_priv(nick, "http://dictionary.com/browse/{}".format(term))
+					if if_channel in data:
+						self.send_channel("{0}".format(content))
+						self.send_channel("{0}".format(example))
+						self.send_channel("http://dictionary.com/browse/{}".format(term))
+					else:
+						self.send_priv(nick, "{0}".format(content))
+						self.send_priv(nick, "{0}".format(example))
+						self.send_priv(nick, "http://dictionary.com/browse/{}".format(term))
 				else:
-					send_priv(nick, "Did you forget something?")
+					if if_channel in data:
+						send_channel("Did you forget something?")
+					else:	
+						send_priv(nick, "Did you forget something?")
 
 
 	# while loop #3. Because thats just how I roll.
