@@ -25,3 +25,17 @@ def urban(term):
 	
 	except Exception as e:
 		return "Shit the bed, contact Maker!"
+
+def define(term):
+	try:
+		url = "https://dictionary.com/browse/{}".format(term)
+		resource = BeautifulSoup(requests.get(url).content, "lxml")
+		content = resource.find('div', {"class":"def-content"}).text.strip()
+		example = resource.find('div', {"class":"def-inline-example"}).text.strip()
+		string = "{0}&+{1}".format(content, example)
+
+		print(string)
+		return string
+
+	except Exception as e:
+		return e

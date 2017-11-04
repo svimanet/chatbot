@@ -2,9 +2,9 @@ import json
 import socket
 import ssl
 import time
-import urban
 import random
-import functions
+from modules import urban
+from modules import blackjack
 
 class I_Bob(object):
 
@@ -95,6 +95,19 @@ class I_Bob(object):
 					self.send_channel("Foolish - {0}".format(response))
 					self.send_channel("http://urbandictionary.com/define.php?term=foolish")
 			
+			if "!define" in message_start:
+				if len(msg.split(" "))>1:
+					term = msg.split("!define ")[1]
+					term = term.replace(" ", "-")
+					response = urban.define(term)
+					content = response.split("&+")[0]
+					example = response.split("&+")[1]
+					self.send_priv(nick, "{0}".format(content))
+					self.send_priv(nick, "{0}".format(example))
+					self.send_priv(nick, "http://dictionary.com/browse/{}".format(term))
+				else:
+					send_priv(nick, "Did you forget something?")
+
 
 	# while loop #3. Because thats just how I roll.
 	# see functions.py, This is where th bot awaits a player action
