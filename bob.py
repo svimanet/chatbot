@@ -1,5 +1,6 @@
-from irc_bob import I_Bob
+from modules import irc_bob
 
-iBob = I_Bob("Bob", "irc.server.org", "#channel", 6697)
+
+iBob = irc_bob.I_Bob("Bob", "irc.velox.pw", "#test", 6697)
 
 iBob.run()
