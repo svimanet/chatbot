@@ -82,7 +82,7 @@ class I_Bob(object):
 				if nick in message:
 					self.send_channel(" # {0} dont inlcude your own name, you are automatically in the game if you start it. <p1>:!play <p2> <p3>".format(nick))
 				else:
-					functions.blackjack(self, nick, message)
+					blackjack.blackjack(self, nick, message)
 
 			if "!urban" in message_start:
 				if len(msg.split(" "))>1:
