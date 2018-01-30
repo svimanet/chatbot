@@ -14,31 +14,27 @@ class I_Bob(object):
 		self.server = server
 		self.port = port
 		self.name = name
-		self.channel = channel
+		self.channel = channel.strip()
 
 		self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.s.connect((self.server, self.port))
 		self.ircsock = ssl.wrap_socket(self.s)
-
 
 	# sends message to socket
 	def send_socket(self, message):
 		self.ircsock.send(message.encode("utf-8"))
 		print(message)
 
-
 	# Method for the bot to send a public message to the channel.
 	# Channel is either IRC channel or Twitch streamer channel, both work.
 	def send_channel(self, message):
 		#Used to send messages in channels to avoid code duplication.
 		self.send_socket("PRIVMSG {0} :{1}\r\n".format(self.channel, message))
-
 	
 	# Method for the bot to send a private message in IRC to a user.
 	# Currently not supported for Twitch chat, will fix one day.
 	def send_priv(self, nick, message):
 		self.send_socket("PRIVMSG {0} :{1}\n".format(nick, message))
-
 
 	# if the server says PING, The bot will respond PONG + the relevant data.
 	# Also works for Twich bot
@@ -49,6 +45,7 @@ class I_Bob(object):
 			self.send_socket("PONG {0}\r\n".format(pongData))
 			print(data)
 
+	def votekick(self, nick)
 
 	# Joins a channel after a ceretain ID id recieved, to ensure it doenst connect too soon.
 	# Also works for twitch, but twitch server sends out another ID. 
@@ -57,7 +54,6 @@ class I_Bob(object):
 	def join_channel(self, data):
 		if "266" in data:
 			self.send_socket("JOIN {0}\r\n".format(self.channel))
-
 			
 	# Method for the bot to sort between user messages and server messages.
 	# Here the bots reaction strings are speciefied
