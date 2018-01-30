@@ -45,7 +45,6 @@ class I_Bob(object):
 			self.send_socket("PONG {0}\r\n".format(pongData))
 			print(data)
 
-	def votekick(self, nick)
 
 	# Joins a channel after a ceretain ID id recieved, to ensure it doenst connect too soon.
 	# Also works for twitch, but twitch server sends out another ID. 
