@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import lxml.html
 import requests
 
+# Urbandictionary.com
 def urban(term):
 	try:
 		url = "http://urbandictionary.com/define.php?term={0}".format(term)
@@ -9,14 +10,12 @@ def urban(term):
 		content = resource.find('div', {"class":"meaning"}).text.strip()
 		print(content)
 		return content
-	
+
 	except Exception as e:
 		print(e)
-		return "Shit the bed, contact Maker!"
+		return "Failed getting urban definition :("
 
-
-
-
+# Dictionary.com
 def define(term):
 	try:
 		url = "https://dictionary.com/browse/{}".format(term)
@@ -39,4 +38,5 @@ def define(term):
 		return string
 
 	except Exception as e:
+		print(e)
 		return e

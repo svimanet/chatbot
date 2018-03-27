@@ -14,16 +14,17 @@ if not os.path.isfile("config.conf"):
 
 	config = cp.ConfigParser()
 	config["DEFAULT"] = {
-		"NICK":"Bob",
-		"SERVER":server,
-		"CHANNEL":channel,
-		"PORT":6697
+		"Nick":"Bob",
+		"Server":server,
+		"Channel":channel,
+		"Port":6697
 	}
 
 	config["MODULES"] = {
-		"BLACKJACK":False,
-		"URBAN":True,
-		"DICTIONARY":True
+		"BlackJack":False,
+		"Urban":True,
+		"Dictionary":True,
+		"Reminder":True
 	}
 
 	# Save config with default data.
@@ -35,12 +36,5 @@ if not os.path.isfile("config.conf"):
 file_data = open(file).read()
 config = cp.ConfigParser()
 config.read(file)
-data = config["DEFAULT"]
-port = int(data["PORT"])
-chan = data["CHANNEL"]
-serv = data["SERVER"]
-nick = data["NICK"]
-
-print("Running {}.".format(nick))
-bob = irc_bob.I_Bob(nick, serv, chan, port)
+bob = irc_bob.I_Bob(config)
 bob.run()
