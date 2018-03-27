@@ -24,7 +24,7 @@ if not os.path.isfile("config.conf"):
 		"BlackJack":False,
 		"Urban":True,
 		"Dictionary":True,
-		"Reminder":True
+		"Reminder":False
 	}
 
 	# Save config with default data.
