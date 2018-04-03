@@ -68,7 +68,8 @@ class I_Bob(object):
 			nick = one.split("!")[0].lower()
 			msg = data.split(":")[2].lower()
 			message_start = msg.split(" ")[0].lower()
-			if_channel = str("PRIVMSG {}".format(self.channel))
+			if_priv = one.split(":")[0].lower()
+			if_channel = str("privmsg {}".format(self.channel))
 
 			# Sends command list in priv msg
 			if "!help" in message_start:
@@ -95,13 +96,13 @@ class I_Bob(object):
 						term = msg.split("!urban ")[1]
 						term = term.replace(" ", "+")
 						response = urban.urban(term)
-						if if_channel in data:
+						if if_channel in if_priv:
 							self.send_channel("{0}".format(response))
 						else:
 							self.send_priv(nick, "{0}".format(response))
 
 				except Exception as e:
-					if if_channel in data:
+					if if_channel in if_priv:
 						self.send_channel("Something went wrong :(")
 					else:
 						self.send_priv("Something went wrong :(")
@@ -116,7 +117,7 @@ class I_Bob(object):
 						response = str(urban.define(term))
 						content = response.split("&+")[0]
 						example = response.split("&+")[1]
-						if if_channel in data:
+						if if_channel in if_priv:
 							self.send_channel("{0}".format(content))
 							self.send_channel("{0}".format(example))
 						else:
@@ -124,7 +125,7 @@ class I_Bob(object):
 							self.send_priv(nick, "{0}".format(example))
 					
 				except Exception as e:
-					if if_channel in data:
+					if if_channel in if_priv:
 						self.send_channel("Something went wrong :(")
 					else:
 						self.send_priv("Something went wrong :(")
