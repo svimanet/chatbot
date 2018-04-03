@@ -78,14 +78,15 @@ class I_Bob(object):
 				self.send_priv(nick, "{} !remind - Set a reminder for x event. [!remind <'thing thing' 01.01.18]".format(self.check_enable(self.m_reminder)))
 
 			# STart the BlackJack game if enabled.
-			if "!play" in message_start and "True" in self.m_blackjack:
-				message = msg.split("!play")[1].lower()
-				if nick in message:
-					self.send_channel(" # {0} dont inlcude your own name, you are automatically in the game if you start it. <p1>:!play <p2> <p3>".format(nick))
+			if "!play" in message_start:
+				if "True" in self.m_blackjack:
+					message = msg.split("!play")[1].lower()
+					if nick in message:
+						self.send_channel(" # {0} dont inlcude your own name, you are automatically in the game if you start it. <p1>:!play <p2> <p3>".format(nick))
+					else:
+						blackjack.blackjack(self, nick, message)
 				else:
-					blackjack.blackjack(self, nick, message)
-			else:
-				self.send_channel("BlackJack is Disabled.")
+					self.send_channel("BlackJack is Disabled.")
 
 			# If user types "!urban x" activate urban on x.
 			if "!urban" in message_start and "True" in self.m_urban:

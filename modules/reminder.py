@@ -18,7 +18,7 @@ def delete_reminder(nick, database, title):
 	result = data.get(nick, None)
 	for entry in result:
 		if title in entry["title"]:
-			data.delete("/{}".format(nick), entry["id"])
+			data.delete("/{}.json".format(nick), entry["id"])
 			print("deleted " + entry)
 
 
@@ -43,6 +43,6 @@ def print_reminder(nick, database):
 
 
 db = "https://mydatabase.firebaseio.com/reminders/"
-#delete_reminder("test", db, "test")
+delete_reminder("svimanet", db, "test")
 #create_reminder("test", db, "test", "01.02.03", "01:00")
-print(print_reminder("test", db))
+#print(print_reminder("test", db))
