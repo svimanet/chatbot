@@ -52,7 +52,6 @@ class I_Bob(object):
 		if "PING" in data:
 			pongData=data.split(":")[1]
 			self.send_socket("PONG {0}\r\n".format(pongData))
-			print(data)
 
 
 	# Joins a channel after a ceretain ID id recieved, to ensure it doenst connect too soon.
@@ -79,7 +78,7 @@ class I_Bob(object):
 				self.send_priv(nick, "{} !urban - Search for a urban dictionary term [!urban <term>]".format(self.check_enable(self.m_urban)))
 				self.send_priv(nick, "{} !define - Search for a dictionary term [!define <term>]".format(self.check_enable(self.m_dictionary)))
 				self.send_priv(nick, "{} !remind - Set a reminder for x event. [!remind <'thing thing' 01.01.18]".format(self.check_enable(self.m_reminder)))
-				self.send_priv(nick, "{} !bike - Get availability status of a city bike station. [!bike <station_name>]").format(self.check_enable(self.m_bike))
+				self.send_priv(nick, "{} !bike - Get availability status of a city bike station. [!bike <station_name>]".format(self.check_enable(self.m_bike)))
 			
 			# STart the BlackJack game if enabled.
 			if "!play" in message_start:
@@ -137,7 +136,7 @@ class I_Bob(object):
 			# Lets user query for bike availability at stations.
 			if "!bike" in message_start and "True" in self.m_bike:
 				try:
-					if len(msg.split(" "))>0:
+					if len(msg.split(" "))>1:
 						station_name = msg.split("!bike ")[1]
 						result = bike.get_station_status(station_name)
 						if if_channel in if_priv:
@@ -145,17 +144,24 @@ class I_Bob(object):
 						else:
 							self.send_priv(nick, result)
 					else:
+						stations = bike.get_stations()
 						if if_channel in if_priv:
 							self.send_channel("Please specify station by name.")
+							self.send_priv(nick, stations[0])
+							if len(stations[1])>0:
+								self.send_priv(nick, stations[1])
 						else:
 							self.send_priv(nick, "Please specify station by name.")
+							self.send_priv(nick, stations[0])
+							if len(stations[1])>0:
+								self.send_priv(nick, stations[1])
 
 
 				except Exception as e:
 					if if_channel in if_priv:
 						self.send_channel("Something went wrong :(")
 					else:
-						self.send_priv("Something went wrong :(")
+						self.send_priv(nick, "Something went wrong :(")
 					print(e)
 
 

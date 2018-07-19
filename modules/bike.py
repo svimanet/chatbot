@@ -34,3 +34,26 @@ def get_status(name, station_id, cap):
             data = "{} - {}/{} available bikes.".format(name.strip(), station["num_bikes_available"], cap).title()
             return data
     return "¯\\_(ツ)_/¯"
+
+def get_stations():
+    station_list = "{}/stations.json".format(os.path.dirname(os.path.realpath(__file__)))
+    if not os.path.isfile(station_list):
+        url = "http://gbfs.urbansharing.com/bergen-city-bike/station_information.json"
+        response = requests.get(url)
+        assert response.status_code == 200
+        raw_json = json.loads(response.text)
+        with open(station_list, "w+") as data_file:
+            json.dump(raw_json, data_file)
+        get_stations()
+
+    else:
+        stations1 = json.load(open(station_list))
+        stations = stations1["data"]["stations"]
+        station_names1 = []
+        station_names2 = []
+        for x, station in enumerate(stations):
+            if x < (len(stations)/2):
+            	station_names1.append(station["name"])
+            else:
+            	station_names2.append(station["name"])
+        return [station_names1, station_names2]
