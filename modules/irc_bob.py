@@ -1,5 +1,6 @@
 from modules import blackjack
 from modules import urban
+from modules import bike
 import configparser as cp
 import random
 import socket
@@ -23,6 +24,7 @@ class I_Bob(object):
 		self.m_blackjack = self.modules["BlackJack"]
 		self.m_reminder = self.modules["Reminder"]
 		self.m_urban = self.modules["Urban"]
+		self.m_bike = self.modules["Bike"]
 
 		self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.s.connect((self.server, self.port))
@@ -77,7 +79,8 @@ class I_Bob(object):
 				self.send_priv(nick, "{} !urban - Search for a urban dictionary term [!urban <term>]".format(self.check_enable(self.m_urban)))
 				self.send_priv(nick, "{} !define - Search for a dictionary term [!define <term>]".format(self.check_enable(self.m_dictionary)))
 				self.send_priv(nick, "{} !remind - Set a reminder for x event. [!remind <'thing thing' 01.01.18]".format(self.check_enable(self.m_reminder)))
-
+				self.send_priv(nick, "{} !bike - Get availability status of a city bike station. [!bike <station_name>]").format(self.check_enable(self.m_bike))
+			
 			# STart the BlackJack game if enabled.
 			if "!play" in message_start:
 				if "True" in self.m_blackjack:
@@ -130,6 +133,31 @@ class I_Bob(object):
 					else:
 						self.send_priv("Something went wrong :(")
 					print(e)
+
+			# Lets user query for bike availability at stations.
+			if "!bike" in message_start and "True" in self.m_bike:
+				try:
+					if len(msg.split(" "))>0:
+						station_name = msg.split("!bike ")[1]
+						result = bike.get_station_status(station_name)
+						if if_channel in if_priv:
+							self.send_channel(result)
+						else:
+							self.send_priv(nick, result)
+					else:
+						if if_channel in if_priv:
+							self.send_channel("Please specify station by name.")
+						else:
+							self.send_priv(nick, "Please specify station by name.")
+
+
+				except Exception as e:
+					if if_channel in if_priv:
+						self.send_channel("Something went wrong :(")
+					else:
+						self.send_priv("Something went wrong :(")
+					print(e)
+
 
 
 	# Just used to prettify command list.
