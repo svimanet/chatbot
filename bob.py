@@ -8,8 +8,8 @@ directory = os.path.dirname(os.path.realpath(__file__))
 file = "{}/config.conf".format(directory)
 if not os.path.isfile("config.conf"):
 	print("Creating default config:")
-	server = input("server  > ")
-	channel = input("channel > ")
+	server = input("Server> ")
+	channel = input("Channel> ")
 	data = "Bob {} {} {}".format(server, channel, 6697)
 
 	config = cp.ConfigParser()
