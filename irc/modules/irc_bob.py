@@ -1,6 +1,7 @@
 from modules import blackjack
 from modules import urban
 from modules import bike
+from modules import spellcheck
 import configparser as cp
 import random
 import socket
@@ -156,13 +157,21 @@ class I_Bob(object):
 							if len(stations[1])>0:
 								self.send_priv(nick, stations[1])
 
-
 				except Exception as e:
 					if if_channel in if_priv:
 						self.send_channel("Something went wrong :(")
 					else:
 						self.send_priv(nick, "Something went wrong :(")
 					print(e)
+
+            if "!check" in message_start:
+                if len(msg.split(" "))>1:
+                    term = msg.split("!check ")[1]
+                    response = spellcheck.check_spelling(term)
+                    if if_channel in if_priv:
+                        self.send_channel("{}: {}".format(nick, response))
+                    else:
+                        self.send_priv(nick, "{}".format(response))
 
 
 
