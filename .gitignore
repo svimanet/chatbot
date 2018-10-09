@@ -5,3 +5,4 @@ __pycache__
 events.json
 token.txt
 reminders.json
+.gitconfig
