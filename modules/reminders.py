@@ -30,6 +30,6 @@ def set_reminder(nick, msg, date, time):
 # Iterates over reminders and sends PM to users if time and date.
 def remind(nick):
     
-
+# test
 
 set_reminder("hm","tannlege elns", "12.01.02","14:00")
