@@ -29,7 +29,10 @@ def set_reminder(nick, msg, date, time):
 
 # Iterates over reminders and sends PM to users if time and date.
 def remind(nick):
-    
-# test
+    reminders = get_reminders()
+    if reminders.get(nick):
+        print(reminders.get(nick))
 
-set_reminder("hm","tannlege elns", "12.01.02","14:00")
+
+#set_reminder("hm","tannlege elns", "12.01.02","14:00")
+remind("svimanet")
