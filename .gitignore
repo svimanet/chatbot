@@ -2,7 +2,6 @@ modules/station_list.json
 config.conf
 __pycache__
 .idea
-events.json
+*.json
 token.txt
-reminders.json
 .gitconfig
