@@ -2,3 +2,6 @@ modules/station_list.json
 config.conf
 __pycache__
 .idea
+*.json
+token.txt
+.gitconfig
