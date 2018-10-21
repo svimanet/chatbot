@@ -1,4 +1,6 @@
+from modules import greeting
 from modules import urban
+from modules import bike
 import configparser as cp
 import socket
 import json
@@ -111,7 +113,7 @@ def send_msg(irc_sock, mode, channel, nick, msg):
 
 """ Chat parsing and activations """
 def parse_msg(irc_sock, data, channel):
-    print("# parse_msg #\n", data, "\n###")
+    #print("# parse_msg #\n", data, "\n")
     if "PRIVMSG" in data:
         details = data.split(":")[1]
         nick = details.split("!")[0]
@@ -130,12 +132,21 @@ def parse_msg(irc_sock, data, channel):
 @param mode - Variable to distinguish between PM and CM.
 """
 def activate_features(irc_sock, channel, nick, msg, mode):
-    print("# activate_features #\n", msg, "\n###")
+    # print("# activate_features #\n", msg, "\n")
     if "!status" in msg:
         send_msg(irc_sock, mode, channel, nick, "{0}: alive I guess..".format(nick))
     elif "!urban" in msg:
         response = urban.urban(msg)
         send_msg(irc_sock, mode, channel, nick, response)
+    elif "!bike" in msg:
+        location = msg.split("!bike ")[1]
+        response = "{}: {}".format(nick, bike.get_station_status(location))
+        send_msg(irc_sock, mode, channel, nick, response)
+    else:
+        response = greeting.greet(msg)
+        if response: 
+            response1 = "{}: {}".format(nick, response)
+            send_msg(irc_sock, mode, channel, nick, response1)
     
 
 """ Main run loop 

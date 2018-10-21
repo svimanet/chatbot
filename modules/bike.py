@@ -2,8 +2,8 @@ import requests
 import json
 import os
 
-
 def get_station_status(station_name):
+    """ Returns information about available citybikes at a location. """
     station_list = "{}/stations.json".format(os.path.dirname(os.path.realpath(__file__)))
     if not os.path.isfile(station_list):
         url = "http://gbfs.urbansharing.com/bergen-city-bike/station_information.json"
