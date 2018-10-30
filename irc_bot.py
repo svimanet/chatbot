@@ -165,11 +165,14 @@ def activate_features(irc_sock, channel, nick, msg, mode):
             send_msg(irc_sock, mode, channel, nick, response1)
 
         now = datetime.datetime.now()
-        am8000 = now.replace(hour=13, minute=35, second=0, microsecond=0)
-        am8001 = now.replace(hour=13, minute=36, second=0, microsecond=0)
+        time1 = now.replace(hour=8, minute=00, second=0, microsecond=0)
+        time2 = now.replace(hour=8, minute=01, second=0, microsecond=0)
+        time3 = now.replace(hour=13, minute=36, second=0, microsecond=0)
+        time4 = now.replace(hour=13, minute=37, second=0, microsecond=0)
+        time5 = now.replace(hour=13, minute=38, second=0, microsecond=0)
 
         # modules/reminders.py
-        if now > am8000 and now < am8001:
+        if now > time1 and now < time2:
             rems = rem.daily_reminder()
             if rems != None:
                 print(rems)
@@ -178,7 +181,20 @@ def activate_features(irc_sock, channel, nick, msg, mode):
                     for x in range(len(rems[v])):
                         response = "{} {} -- {}".format(rems[v][x][0], rems[v][x][1], rems[v][x][2])
                         send_msg(irc_sock, 1, channel, str(v), response)
-    
+
+
+        # Cheating leet scores on local irc serv
+        if now > time3 and now < time4:
+            users = ["svimanet"]
+            for x in range(len(users)):
+                send_msg(irc_sock, 1, channel, users[x], "Remember l33t!")
+
+
+        # Let the bot partake in our leet game
+        if now > time4 and now < time5:
+            send_msg(irc_sock, 0, channel, nick, " ")
+            #time.sleep(30)
+
 
 def passive_features(irc_sock):
     """ For passive features without actuators.
