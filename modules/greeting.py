@@ -2,14 +2,12 @@ import random
 
 def greet(user_input):
     """ Responds and greets users. """
-    print("# greeting.greet() #\n", user_input, "\n")
     first_word = user_input.split(" ")[0].strip('?!.,;:\n\t\r')
     user_input = user_input.strip('?!.,:;\n\t\r')
     greetings = ['hola', 'hello', 'hi', 'hey!', 'hey', 'halla', 'yo', 'hai', 'hei']
     question = ['whats up', 'sup', 'skjer', 'skjera']
     responses = ['Chillin\'',"Havin a blast", "Ins dd?", "Not doing much."]
 
-    print("# {} #".format(first_word))
     if first_word in greetings:
         print(" IN GREET LIST YES YES")
         random_greeting = random.choice(greetings)

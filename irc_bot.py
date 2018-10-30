@@ -1,7 +1,9 @@
+from modules import reminders as rem
 from modules import greeting
 from modules import urban
 from modules import bike
 import configparser as cp
+import datetime
 import socket
 import json
 import time
@@ -94,7 +96,7 @@ def ping_pong(irc_sock, data):
 """        
 def join_chan(irc_sock, data, chan):
     if ("266" in data) and ("PRIVMSG" not in data):
-        print("\n# TRYING TO JOIN #\n", data, "\n####\n")
+        #print("\n# TRYING TO JOIN {0} #\n".format(chan))
         send_sock(irc_sock, "JOIN {0}\r\n".format(chan))
 
 
@@ -135,19 +137,55 @@ def activate_features(irc_sock, channel, nick, msg, mode):
     # print("# activate_features #\n", msg, "\n")
     if "!status" in msg:
         send_msg(irc_sock, mode, channel, nick, "{0}: alive I guess..".format(nick))
-    elif "!urban" in msg:
+    
+    elif "!urban " in msg:
         response = urban.urban(msg)
         send_msg(irc_sock, mode, channel, nick, response)
-    elif "!bike" in msg:
+
+    elif "!bike " in msg:
         location = msg.split("!bike ")[1]
         response = "{}: {}".format(nick, bike.get_station_status(location))
         send_msg(irc_sock, mode, channel, nick, response)
-    else:
+    
+    elif "!remind " in msg:
+        reminder = msg.split("!remind ")[1]
+        response = rem.set_reminder(nick, reminder)
+        send_msg(irc_sock, mode, channel, nick, response)
+
+    elif "!reminders" in msg:
+        response = rem.check_reminders(nick)
+        for k, v in enumerate(response):
+            send_msg(irc_sock, 1, channel, nick, response[k])
+
+    else:  # Passive features WITH actuators
+        # modules/greeting.py 
         response = greeting.greet(msg)
         if response: 
             response1 = "{}: {}".format(nick, response)
             send_msg(irc_sock, mode, channel, nick, response1)
+
+        now = datetime.datetime.now()
+        am8000 = now.replace(hour=13, minute=35, second=0, microsecond=0)
+        am8001 = now.replace(hour=13, minute=36, second=0, microsecond=0)
+
+        # modules/reminders.py
+        if now > am8000 and now < am8001:
+            rems = rem.daily_reminder()
+            if rems != None:
+                print(rems)
+                for k, v in enumerate(rems):
+                    send_msg(irc_sock, 1, channel, str(v), "Daily reminders:")
+                    for x in range(len(rems[v])):
+                        response = "{} {} -- {}".format(rems[v][x][0], rems[v][x][1], rems[v][x][2])
+                        send_msg(irc_sock, 1, channel, str(v), response)
     
+
+def passive_features(irc_sock):
+    """ For passive features without actuators.
+    :param irc_sock: server communication socket. 
+    """
+    
+
 
 """ Main run loop 
 @param nick - Bot nick/name.
@@ -158,13 +196,13 @@ def activate_features(irc_sock, channel, nick, msg, mode):
 """
 def run(nick, server, channel, port, irc_sock):
     send_sock(irc_sock, "USER {0} {0} {0} {0}\r\n".format(nick))
-    send_sock(irc_sock, "NICK {0}\n".format(nick))
-    running = True    
-    while running:
+    send_sock(irc_sock, "NICK {0}\n".format(nick)) 
+    while True:
         data = irc_sock.recv(1024).decode('utf-8')
         print(data)
         join_chan(irc_sock, data, channel)
         ping_pong(irc_sock, data)
         parse_msg(irc_sock, data, channel)
+        passive_features(irc_sock)
         
 create_bot()
