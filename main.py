@@ -9,7 +9,7 @@ from modules import jokes
 from modules import quote_day
 
 class Bot:
-    def __init__(self, nick="Bobot2", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
+    def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
         self.nick = nick
         self.name = name
         self.hostname = hostname
