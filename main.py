@@ -80,7 +80,7 @@ class Bot:
         if "PRIVMSG" in data:
             details = data.split(":")[1]
             nick = details.split("!")[0]
-            message = data.split(":")[2]
+            message = data.split(" :", 1)[1]
 
             if self.channel in details:  # Its not a PrivateMessage
                 self.actuators(message, nick, False)
@@ -93,7 +93,8 @@ class Bot:
         :param message: The user message recieved.
         :param nick: Nick of the user that sent the message.
         :param pm: Whether or not its a private message. """
-        
+        message = str(message)
+        print(message)
         if "!" in message[0]:
             if "!hello" in message.lower():
                 msg = "Hello there, {}!".format(nick)
