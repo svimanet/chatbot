@@ -7,6 +7,7 @@ from modules import urban_dictionary
 from modules import spelling
 from modules import jokes
 from modules import quote_day
+from modules import sympathy_answer
 
 class Bot:
     def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
@@ -34,7 +35,7 @@ class Bot:
 
 
     def sock_send(self, msg):
-        """ Sends data through socket. Does not send socks. 
+        """ Sends data through socket. Does not send socks.
         :param msg: The String content to send through socket. """
         msg += '\r\n'  # New line counts as 'return/exec ..'
         self.irc_socket.send(msg.encode('utf-8'))
@@ -51,7 +52,7 @@ class Bot:
 
 
     def ping_pong(self, data):
-        """ Responds PONG to server Pings. 
+        """ Responds PONG to server Pings.
         :param data: raw socket data from server. """
         if "PRIVMSG" not in data and "PING" in data.split(':')[0]:
             self.sock_send("PONG {}".format(data.split(':')[1]))
@@ -101,11 +102,11 @@ class Bot:
             if "!hello" in message.lower():
                 msg = "Hello there, {}!".format(nick)
                 self.send_msg(msg, nick, pm)
-        
+
             elif "!urban" in message.lower():
                 result = urban_dictionary.urban_term(message)
                 self.send_msg(result, nick, pm)
-        
+
             elif "!check" in message.lower():
                 result = spelling.check_spelling(message)
                 self.send_msg(result, nick, pm)
@@ -114,6 +115,9 @@ class Bot:
                 self.send_msg(result, nick, pm)
             elif "!quote" in message.lower():
                 result = quote_day.quote_of_the_day()
+                self.send_msg(result, nick, pm)
+            elif "!sympathy" in message.lower():
+                result = sympathy_answer.aww()
                 self.send_msg(result, nick, pm)
 
 
@@ -144,7 +148,7 @@ class Bot:
             self.ping_pong(data)
             self.check_errors(data)
             self.parse_msg(data)
-            
+
 
 # Instansiate
 bob = Bot()
