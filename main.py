@@ -4,6 +4,7 @@ import ssl
 
 # Import modules
 from modules import urban_dictionary
+from modules import spelling
 
 class Bot:
     def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
@@ -93,13 +94,18 @@ class Bot:
         :param nick: Nick of the user that sent the message.
         :param pm: Whether or not its a private message. """
         
-        if "!hello" in message.lower():
-            msg = "Hello there, {}!".format(nick)
-            self.send_msg(msg, nick, pm)
+        if "!" in message[0]:
+            if "!hello" in message.lower():
+                msg = "Hello there, {}!".format(nick)
+                self.send_msg(msg, nick, pm)
         
-        elif "!urban" in message.lower():
-            result = urban_dictionary.urban_term(message)
-            self.send_msg(result, nick, pm)
+            elif "!urban" in message.lower():
+                result = urban_dictionary.urban_term(message)
+                self.send_msg(result, nick, pm)
+        
+            elif "!check" in message.lower():
+                result = spelling.check_spelling(message)
+                self.send_msg(result, nick, pm)
 
 
     def start_bot(self):
