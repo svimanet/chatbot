@@ -2,6 +2,9 @@
 import socket
 import ssl
 
+# Import modules
+from modules import urban_dictionary
+
 class Bot:
     def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
         self.nick = nick
@@ -89,9 +92,14 @@ class Bot:
         :param message: The user message recieved.
         :param nick: Nick of the user that sent the message.
         :param pm: Whether or not its a private message. """
+        
         if "!hello" in message.lower():
             msg = "Hello there, {}!".format(nick)
             self.send_msg(msg, nick, pm)
+        
+        elif "!urban" in message.lower():
+            result = urban_dictionary.urban_term(message)
+            self.send_msg(result, nick, pm)
 
 
     def start_bot(self):
