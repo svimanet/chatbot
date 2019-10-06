@@ -5,6 +5,7 @@ import ssl
 # Import modules
 from modules import urban_dictionary
 from modules import spelling
+from modules import roll
 from modules import jokes
 from modules import quote_day
 from modules import horoscope
@@ -110,6 +111,10 @@ class Bot:
         
             elif "!check" in message.lower():
                 result = spelling.check_spelling(message)
+                self.send_msg(result, nick, pm)
+            
+            elif "!roll" in message.lower():
+                result = roll.roll(message)
                 self.send_msg(result, nick, pm)
 
             elif "!joke" in message.lower():
