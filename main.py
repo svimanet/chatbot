@@ -6,6 +6,10 @@ import ssl
 from modules import urban_dictionary
 from modules import spelling
 from modules import roll
+from modules import jokes
+from modules import quote_day
+from modules import horoscope
+from modules import name_day
 
 class Bot:
     def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
@@ -81,7 +85,7 @@ class Bot:
         if "PRIVMSG" in data:
             details = data.split(":")[1]
             nick = details.split("!")[0]
-            message = data.split(":")[2]
+            message = data.split(" :", 1)[1]
 
             if self.channel in details:  # Its not a PrivateMessage
                 self.actuators(message, nick, False)
@@ -94,7 +98,8 @@ class Bot:
         :param message: The user message recieved.
         :param nick: Nick of the user that sent the message.
         :param pm: Whether or not its a private message. """
-        
+        message = str(message)
+        print(message)
         if "!" in message[0]:
             if "!hello" in message.lower():
                 msg = "Hello there, {}!".format(nick)
@@ -111,6 +116,27 @@ class Bot:
             elif "!roll" in message.lower():
                 result = roll.roll(message)
                 self.send_msg(result, nick, pm)
+
+            elif "!joke" in message.lower():
+                result = jokes.random_joke()
+                self.send_msg(result, nick, pm)
+
+            elif "!quote" in message.lower():
+                result = quote_day.quote_of_the_day()
+                self.send_msg(result, nick, pm)
+
+            elif "!nameday" in message.lower():
+                result = name_day.todays_names()
+                self.send_msg(result, nick, pm)
+
+            elif "!horoscope" in message.lower():
+                try:
+                    zodiac = message.split(' ', 1)[1].split('\r\n')[0]
+                    result = horoscope.get_horoscope(zodiac)
+                    self.send_msg(result, nick, pm)
+                except IndexError:
+                    self.send_msg('Did you forget the zodiac sign?', nick, pm)
+
 
     def start_bot(self):
         """ Starts the bot and connects to channel. Then goes into actuator mode. """
