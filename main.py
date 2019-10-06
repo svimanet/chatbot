@@ -5,6 +5,7 @@ import ssl
 # Import modules
 from modules import urban_dictionary
 from modules import spelling
+from modules import roll
 
 class Bot:
     def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
@@ -106,7 +107,10 @@ class Bot:
             elif "!check" in message.lower():
                 result = spelling.check_spelling(message)
                 self.send_msg(result, nick, pm)
-
+            
+            elif "!roll" in message.lower():
+                result = roll.roll(message)
+                self.send_msg(result, nick, pm)
 
     def start_bot(self):
         """ Starts the bot and connects to channel. Then goes into actuator mode. """
