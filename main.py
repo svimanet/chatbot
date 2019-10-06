@@ -7,6 +7,7 @@ from modules import urban_dictionary
 from modules import spelling
 from modules import jokes
 from modules import quote_day
+from modules import horoscope
 
 class Bot:
     def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
@@ -109,12 +110,22 @@ class Bot:
             elif "!check" in message.lower():
                 result = spelling.check_spelling(message)
                 self.send_msg(result, nick, pm)
+
             elif "!joke" in message.lower():
                 result = jokes.random_joke()
                 self.send_msg(result, nick, pm)
+
             elif "!quote" in message.lower():
                 result = quote_day.quote_of_the_day()
                 self.send_msg(result, nick, pm)
+
+            elif "!horoscope" in message.lower():
+                try:
+                    zodiac = message.split(' ', 1)[1].split('\r\n')[0]
+                    result = horoscope.get_horoscope(zodiac)
+                    self.send_msg(result, nick, pm)
+                except IndexError:
+                    self.send_msg('Did you forget the zodiac sign?', nick, pm)
 
 
     def start_bot(self):
