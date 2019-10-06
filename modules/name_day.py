@@ -1,7 +1,7 @@
 from requests import get
 import json
 
-def todays_names(line):
+def todays_names():
     url = "https://api.abalin.net/get/today?country=us"
     try:
         raw_json = get(url).text
