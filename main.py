@@ -10,6 +10,7 @@ from modules import jokes
 from modules import quote_day
 from modules import horoscope
 from modules import name_day
+from modules import random_cat
 
 class Bot:
     def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
@@ -134,7 +135,7 @@ class Bot:
                 self.send_msg(result, nick, pm)
 
             elif "!meow" in message.lower():
-                result = jokes.random_chuck_joke()
+                result = random_cat.random_cat_pick()
                 self.send_msg(result, nick, pm)
 
             elif "!horoscope" in message.lower():
