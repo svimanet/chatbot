@@ -17,3 +17,13 @@ def random_joke():
         # TODO: Handle correct exceptions properly
         print(e)
         return "Error Beep Boop"
+
+def random_chuck_joke():
+    url = 'https://api.chucknorris.io/jokes/random'
+    try:
+        response = requests.get(url)
+        response_json = json.loads(response.text) 
+        return response_json.get('value')
+    except:
+        return 'Chuck went on vacation...'
+     
