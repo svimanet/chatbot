@@ -135,7 +135,7 @@ class Bot:
                 self.send_msg(result, nick, pm)
 
             elif "!meow" in message.lower():
-                result = random_cat.random_cat_pick()
+                result = random_cat.random_cat_pic()
                 self.send_msg(result, nick, pm)
 
             elif "!horoscope" in message.lower():
