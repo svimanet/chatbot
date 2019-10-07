@@ -133,6 +133,10 @@ class Bot:
                 result = jokes.random_chuck_joke()
                 self.send_msg(result, nick, pm)
 
+            elif "!meow" in message.lower():
+                result = jokes.random_chuck_joke()
+                self.send_msg(result, nick, pm)
+
             elif "!horoscope" in message.lower():
                 try:
                     zodiac = message.split(' ', 1)[1].split('\r\n')[0]
