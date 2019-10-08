@@ -16,3 +16,6 @@ def roll(dice):
         result.append(random.randint(1, sides))
     
     return ", ".join(str(x) for x in result)
+
+def coin_flip():
+    return ["Heads", "The coin landed on it's edge!", "Tails"][random.randint(0, 2)]
