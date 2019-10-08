@@ -102,43 +102,45 @@ class Bot:
         message = str(message)
         print(message)
         if "!" in message[0]:
-            if "!hello" in message.lower():
+            message_lower = message.lower()
+            
+            if "!hello" in message_lower:
                 msg = "Hello there, {}!".format(nick)
                 self.send_msg(msg, nick, pm)
         
-            elif "!urban" in message.lower():
+            elif "!urban" in message_lower:
                 result = urban_dictionary.urban_term(message)
                 self.send_msg(result, nick, pm)
         
-            elif "!check" in message.lower():
+            elif "!check" in message_lower:
                 result = spelling.check_spelling(message)
                 self.send_msg(result, nick, pm)
             
-            elif "!roll" in message.lower():
+            elif "!roll" in message_lower:
                 result = roll.roll(message)
                 self.send_msg(result, nick, pm)
 
-            elif "!joke" in message.lower():
+            elif "!joke" in message_lower:
                 result = jokes.random_joke()
                 self.send_msg(result, nick, pm)
 
-            elif "!quote" in message.lower():
+            elif "!quote" in message_lower:
                 result = quote_day.quote_of_the_day()
                 self.send_msg(result, nick, pm)
 
-            elif "!nameday" in message.lower():
+            elif "!nameday" in message_lower:
                 result = name_day.todays_names()
                 self.send_msg(result, nick, pm)
 
-            elif "!chucknorris" in message.lower():
+            elif "!chucknorris" in message_lower:
                 result = jokes.random_chuck_joke()
                 self.send_msg(result, nick, pm)
 
-            elif "!meow" in message.lower():
+            elif "!meow" in message_lower:
                 result = random_cat.random_cat_pic()
                 self.send_msg(result, nick, pm)
 
-            elif "!horoscope" in message.lower():
+            elif "!horoscope" in message_lower:
                 try:
                     zodiac = message.split(' ', 1)[1].split('\r\n')[0]
                     result = horoscope.get_horoscope(zodiac)
