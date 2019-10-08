@@ -119,6 +119,10 @@ class Bot:
             elif "!roll" in message_lower:
                 result = roll.roll(message)
                 self.send_msg(result, nick, pm)
+                
+            elif "!flip" in message_lower:
+                result = roll.coin_flip()
+                self.send_msg(result, nick, pm)
 
             elif "!joke" in message_lower:
                 result = jokes.random_joke()
