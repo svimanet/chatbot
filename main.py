@@ -12,6 +12,7 @@ from modules import horoscope
 from modules import name_day
 from modules import random_cat
 from modules import random_dog
+from modules import meme_factory
 
 class Bot:
     def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
@@ -155,6 +156,10 @@ class Bot:
             elif "!dog" in message_lower:
                 result = random_dog.random_dog_pic()
                 self.send_msg(result, nick, pm)
+            elif message_lower.startswith('!meme'):
+                meme = meme_factory.meme(message)
+                self.send_msg(meme, nick, pm)
+
 
 
     def start_bot(self):
