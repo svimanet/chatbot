@@ -11,6 +11,7 @@ from modules import quote_day
 from modules import horoscope
 from modules import name_day
 from modules import random_cat
+from modules import random_dog
 
 class Bot:
     def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
@@ -151,6 +152,9 @@ class Bot:
                     self.send_msg(result, nick, pm)
                 except IndexError:
                     self.send_msg('Did you forget the zodiac sign?', nick, pm)
+            elif "!dog" in message_lower:
+                result = random_dog.random_dog_pic()
+                self.send_msg(result, nick, pm)
 
 
     def start_bot(self):
