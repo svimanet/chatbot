@@ -2,3 +2,5 @@ bot_venv
 __pycache__
 env/
 modules/configs/
+config.json
+.DS_Store
