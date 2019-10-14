@@ -37,7 +37,7 @@ class Bot:
             else:
                 default_fp = os.path.join(conf_dir, 'default_config.json')
                 conf = json.load(open(default_fp))
-                json.dump(conf, open(conf_fp, 'w+'))
+                json.dump(conf, open(conf_fp, 'w+'), indent=2)
                 print("Using default config. Edit config.json to change connection details")
         except Exception as e:
             print("Exiting program. Could not load config -> ", e)
