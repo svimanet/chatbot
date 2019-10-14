@@ -1,6 +1,8 @@
 # Import libs
 import socket
 import ssl
+import os
+import json
 
 # Import modules
 from modules import urban_dictionary
@@ -15,20 +17,35 @@ from modules import random_dog
 from modules import meme_factory
 
 class Bot:
-    def __init__(self, nick="Bobot", hostname="Bobot", name="Bob The Bot", server="chat.freenode.net", port=6697, channel="##bobot", password=False):
-        self.nick = nick
-        self.name = name
-        self.hostname = hostname
-        self.server = server
-        self.port = port
-        self.channel = channel
-        self.password = password
+    def __init__(self):
         self.irc_socket = False
-
+        
+        # Load config
+        self.load_config()
+        
         # Start bot
         self.server_connect()
         self.start_bot()
-
+    
+    def load_config(self):
+        conf_dir = os.path.abspath(os.path.dirname(__file__))
+        conf_fp = os.path.join(conf_dir, 'config.json')
+        conf = {}
+        try:
+            if os.path.isfile(conf_fp):
+                conf = json.load(open(conf_fp))
+            else:
+                default_fp = os.path.join(conf_dir, 'default_config.json')
+                conf = json.load(open(default_fp))
+                json.dump(conf, open(conf_fp, 'w+'))
+                print("Using default config. Edit config.json to change connection details")
+        except Exception as e:
+            print("Exiting program. Could not load config -> ", e)
+            exit()
+        for k, v in conf.items():
+            setattr(self, k, v)
+            
+        
 
     def server_connect(self):
         """ Starts server connection to specified self.server. """
