@@ -46,8 +46,8 @@ def generate_meme(template_id, username, password, top_text, bot_text):
         else:
             return resp['error_message']
     except Exception as e:
+        print("Error fetching meme.", e)
         return 'Ooops..something went wrong.'
-        print(e, " : Error fetching meme.")
 
 def parse_message(message):
     """
@@ -67,6 +67,7 @@ def parse_message(message):
             bot = args[1]
         return {'template': template, 'top': top, 'bot': bot}
     except Exception as e:
+        print("Error parsing message.", e)
         return False
 
 def get_conf():
