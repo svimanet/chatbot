@@ -15,6 +15,7 @@ from modules import name_day
 from modules import random_cat
 from modules import random_dog
 from modules import meme_factory
+from modules import jesus
 
 class Bot:
     def __init__(self):
@@ -161,6 +162,10 @@ class Bot:
 
             elif "!meow" in message_lower:
                 result = random_cat.random_cat_pic()
+                self.send_msg(result, nick, pm)
+            
+            elif "!jesus" in message_lower:
+                result = jesus.jesus()
                 self.send_msg(result, nick, pm)
 
             elif "!horoscope" in message_lower:
