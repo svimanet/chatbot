@@ -16,4 +16,3 @@ def jesus():
         return "Jesus says Good day!"
 
 
-jesus()
