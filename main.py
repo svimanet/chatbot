@@ -165,8 +165,8 @@ class Bot:
                 self.send_msg(result, nick, pm)
 
             elif "!catfact" in message_lower:
-                result = random_cat_fact.random_cat_facts()
-                self.send_msg(result, nick, pm)
+		result = random_cat_fact.random_cat_facts()
+		self.send_msg(result, nick, pm)
  
             elif "!jesus" in message_lower:
                 result = jesus.jesus()
