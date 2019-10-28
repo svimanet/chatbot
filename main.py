@@ -17,6 +17,7 @@ from modules import random_dog
 from modules import meme_factory
 from modules import jesus
 from modules import random_cat_fact
+from modules import draw_card
 
 class Bot:
     def __init__(self):
@@ -186,6 +187,10 @@ class Bot:
             elif message_lower.startswith('!meme'):
                 meme = meme_factory.meme(message)
                 self.send_msg(meme, nick, pm)
+            
+            elif "!drawcard" in message_lower:
+                result = draw_card.draw_card()
+                self.send_msg(result, nick, pm)
 
 
 
