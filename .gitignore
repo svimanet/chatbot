@@ -4,3 +4,4 @@ env/
 modules/configs/
 config.json
 .DS_Store
+.idea
