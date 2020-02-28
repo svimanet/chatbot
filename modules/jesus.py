@@ -8,10 +8,10 @@ import json
 
 def jesus():
     try:
-        url = 'https://jesusapi.000webhostapp.com/api'
+        url = 'https://tronalddump.io/random/quote'
         response = rq.get(url)
-        response_json = json.loads(response.text)
-        return "Have a blessed day: " + response_json.get('link')
+        response_json = json.loads(response.content)
+        return "Have a blessed day: " + response_json.get('value')
     except:
         return "Jesus says Good day!"
 
