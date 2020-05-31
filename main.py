@@ -18,6 +18,7 @@ from modules import meme_factory
 from modules import jesus
 from modules import random_cat_fact
 from modules import draw_card
+from modules import wiki_summary
 
 class Bot:
     def __init__(self):
@@ -181,18 +182,26 @@ class Bot:
                     self.send_msg(result, nick, pm)
                 except IndexError:
                     self.send_msg('Did you forget the zodiac sign?', nick, pm)
+
             elif "!dog" in message_lower:
                 result = random_dog.random_dog_pic()
                 self.send_msg(result, nick, pm)
+
             elif message_lower.startswith('!meme'):
                 meme = meme_factory.meme(message)
                 self.send_msg(meme, nick, pm)
-            
+
             elif "!drawcard" in message_lower:
                 result = draw_card.draw_card()
                 self.send_msg(result, nick, pm)
 
-
+            elif "!wiki" in message_lower:
+                try:
+                    topic = message_lower.split("!wiki ")
+                    result = wiki_summary.scrape(topic[1])
+                except IndexError:
+                    result = "Did you forget to add a topic?"
+                self.send_msg(result, nick, pm)
 
     def start_bot(self):
         """ Starts the bot and connects to channel. Then goes into actuator mode. """
