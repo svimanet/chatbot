@@ -21,17 +21,16 @@ from commands import Actuator
 
 class Bot:
     def __init__(self):
+        """ Constructor initialization starts bot. """
+        self.log = []
         self.irc_socket = False
         self.actuator = Actuator()
-
-        # Load config
         self.load_config()
-        
-        # Start bot
-        self.server_connect()
-        self.start_bot()
+        self.run()
+
     
     def load_config(self):
+        """ Retrieve bot details from config file. """
         conf_dir = os.path.abspath(os.path.dirname(__file__))
         conf_fp = os.path.join(conf_dir, 'config.json')
         conf = {}
@@ -50,17 +49,8 @@ class Bot:
             setattr(self, k, v)
 
 
-    def server_connect(self):
-        """ Starts server connection to specified self.server. """
-        #try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect((self.server, int(self.port)))
-        self.irc_socket = ssl.wrap_socket(sock)
-        #except: # TODO find out which exception
-
-
     def sock_send(self, msg):
-        """ Sends data through socket. Does not send socks. 
+        """ Send data through socket. Does not send socks.
         :param msg: The String content to send through socket. """
         msg += '\r\n'  # New line counts as 'return/exec ..'
         self.irc_socket.send(msg.encode('utf-8'))
@@ -119,26 +109,42 @@ class Bot:
             if result: self.send_msg(result, nick, pm)
 
 
-    def start_bot(self):
+    def dc_monitor(self, data):
+        """ Monitors the last 10 messages to reconnect if no data is recieved. """
+        if (len(self.log) >= 10):
+            del self.log[0]
+        self.log.append(data)
+
+        if len(data) <= 0:
+            num_nulls = 0
+            for entry in self.log:
+                if len(entry) <= 0:
+                    num_nulls += 1
+
+            if num_nulls >= 5:
+                return False
+        return True
+
+
+    def run(self):
+        """ Starts server connection to specified self.server. """
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((self.server, int(self.port)))
+        self.irc_socket = ssl.wrap_socket(sock)
+
         """ Starts the bot and connects to channel. Then goes into actuator mode. """
         self.sock_send("USER {0} {1} {1} {2}".format(self.nick, self.hostname, self.name))
         print("USER {0} {1} {1} {2}".format(self.nick, self.hostname, self.name))
         self.sock_send("NICK {}".format(self.nick))
-        joined = False
+
         starting = True
         while starting:
             data = self.irc_socket.recv(1024).decode('utf-8')
             print("Startup Recv = ", data)
             self.ping_pong(data)
-            joined = self.join_channel(data)
-            if joined: starting = False
+            if self.join_channel(data): starting = False
 
-        print("#############\nStartup success\n#############")
-        self.run()
-
-
-    def run(self):
-        """ Keeps the bot running after startup and channel join. """
+        """ Keep Bot running and recieving. If inputs are 5 consecutive nulls, restart. """
         running = True
         while running:
             data = self.irc_socket.recv(1024).decode('utf-8')
@@ -146,6 +152,10 @@ class Bot:
             self.ping_pong(data)
             self.check_errors(data)
             self.parse_msg(data)
+            running = self.dc_monitor(data)
+
+        """ Recursive restart """
+        self.run()
 
 # Start
 if __name__ == '__main__': bob = Bot()
