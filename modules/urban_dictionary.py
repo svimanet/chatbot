@@ -3,7 +3,6 @@ import lxml.html
 import requests
 
 def urban_term(term):
-    term = term.split("!urban ")[1]
     try:
         url = "http://urbandictionary.com/define.php?term={0}".format(term)
         resource = BeautifulSoup(requests.get(url).content, "lxml")

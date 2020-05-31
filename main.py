@@ -6,24 +6,24 @@ import json
 
 # Import modules
 from modules import urban_dictionary
-from modules import spelling
 from modules import roll
 from modules import jokes
 from modules import quote_day
 from modules import horoscope
-from modules import name_day
 from modules import random_cat
 from modules import random_dog
-from modules import meme_factory
 from modules import jesus
 from modules import random_cat_fact
 from modules import draw_card
 from modules import wiki_summary
 
+from commands import Actuator
+
 class Bot:
     def __init__(self):
         self.irc_socket = False
-        
+        self.actuator = Actuator()
+
         # Load config
         self.load_config()
         
@@ -48,8 +48,7 @@ class Bot:
             exit()
         for k, v in conf.items():
             setattr(self, k, v)
-            
-        
+
 
     def server_connect(self):
         """ Starts server connection to specified self.server. """
@@ -111,97 +110,14 @@ class Bot:
             nick = details.split("!")[0]
             message = data.split(" :", 1)[1]
 
-            if self.channel in details:  # Its not a PrivateMessage
-                self.actuators(message, nick, False)
-            else:                        # It is a PrivateMessage
-                self.actuators(message, nick, True)
+            if self.channel in details:
+                result = self.actuator.command(message, nick, False)
+                pm = False
+            else:
+                result = self.actuator.command(message, nick, True)
+                pm = True
+            if result: self.send_msg(result, nick, pm)
 
-
-    def actuators(self, message, nick, pm):
-        """ Actuators for modules and functions. Only activates on user messages.
-        :param message: The user message recieved.
-        :param nick: Nick of the user that sent the message.
-        :param pm: Whether or not its a private message. """
-        message = str(message)
-        print(message)
-        if "!" in message[0]:
-            message_lower = message.lower()
-            
-            if "!hello" in message_lower:
-                msg = "Hello there, {}!".format(nick)
-                self.send_msg(msg, nick, pm)
-        
-            elif "!urban" in message_lower:
-                result = urban_dictionary.urban_term(message)
-                self.send_msg(result, nick, pm)
-        
-            elif "!check" in message_lower:
-                result = spelling.check_spelling(message)
-                self.send_msg(result, nick, pm)
-            
-            elif "!roll" in message_lower:
-                result = roll.roll(message)
-                self.send_msg(result, nick, pm)
-                
-            elif "!flip" in message_lower:
-                result = roll.coin_flip()
-                self.send_msg(result, nick, pm)
-
-            elif "!joke" in message_lower:
-                result = jokes.random_joke()
-                self.send_msg(result, nick, pm)
-
-            elif "!quote" in message_lower:
-                result = quote_day.quote_of_the_day()
-                self.send_msg(result, nick, pm)
-
-            elif "!nameday" in message_lower:
-                result = name_day.todays_names()
-                self.send_msg(result, nick, pm)
-
-            elif "!chucknorris" in message_lower:
-                result = jokes.random_chuck_joke()
-                self.send_msg(result, nick, pm)
-
-            elif "!meow" in message_lower:
-                result = random_cat.random_cat_pic()
-                self.send_msg(result, nick, pm)
-
-            elif "!catfact" in message_lower:
-                result = random_cat_fact.random_cat_facts()
-                self.send_msg(result, nick, pm)
- 
-            elif "!jesus" in message_lower:
-                result = jesus.jesus()
-                self.send_msg(result, nick, pm)
-
-            elif "!horoscope" in message_lower:
-                try:
-                    zodiac = message.split(' ', 1)[1].split('\r\n')[0]
-                    result = horoscope.get_horoscope(zodiac)
-                    self.send_msg(result, nick, pm)
-                except IndexError:
-                    self.send_msg('Did you forget the zodiac sign?', nick, pm)
-
-            elif "!dog" in message_lower:
-                result = random_dog.random_dog_pic()
-                self.send_msg(result, nick, pm)
-
-            elif message_lower.startswith('!meme'):
-                meme = meme_factory.meme(message)
-                self.send_msg(meme, nick, pm)
-
-            elif "!drawcard" in message_lower:
-                result = draw_card.draw_card()
-                self.send_msg(result, nick, pm)
-
-            elif "!wiki" in message_lower:
-                try:
-                    topic = message_lower.split("!wiki ")
-                    result = wiki_summary.scrape(topic[1])
-                except IndexError:
-                    result = "Did you forget to add a topic?"
-                self.send_msg(result, nick, pm)
 
     def start_bot(self):
         """ Starts the bot and connects to channel. Then goes into actuator mode. """
@@ -226,11 +142,10 @@ class Bot:
         running = True
         while running:
             data = self.irc_socket.recv(1024).decode('utf-8')
-            print("Recv = ", data)
+            print("Recv = ", data.replace("\r\n", ""))
             self.ping_pong(data)
             self.check_errors(data)
             self.parse_msg(data)
-            
 
-# Instansiate
-bob = Bot()
+# Start
+if __name__ == '__main__': bob = Bot()
