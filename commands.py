@@ -16,7 +16,23 @@ class Actuator:
         self.perform = False
         self.nick = None
         self.pm = False
-
+        # Define commands case switch
+        self.dic = {
+            "!urban": self.urban,
+            "!wiki": self.wiki,
+            "!roll": self.roll,
+            "!flip": self.flip,
+            "!joke": self.joke,
+            "!chuck": self.chuck_joke,
+            "!quote": self.quote,
+            "!horoscope": self.horoscope,
+            "!cat": self.cat,
+            "!dog": self.dog,
+            "!jesus": self.jesus,
+            "!catfact": self.cat_fact,
+            "!draw": self.draw_card,
+            "!help": self.help
+        }
 
     def command(self, msg, nick, pm):
         """ Parse and activate command from dict switch. """
@@ -28,26 +44,9 @@ class Actuator:
         else: self.should_perform(True, nick)
         if (not self.perform): return False
 
-        # Define commands case switch
-        dic = {
-            "!urban"     : self.urban,
-            "!wiki"      : self.wiki,
-            "!roll"      : self.roll,
-            "!flip"      : self.flip,
-            "!joke"      : self.joke,
-            "!chuck"     : self.chuck_joke,
-            "!quote"     : self.quote,
-            "!horoscope" : self.horoscope,
-            "!cat"       : self.cat,
-            "!dog"       : self.dog,
-            "!jesus"     : self.jesus,
-            "!catfact"   : self.cat_fact,
-            "!draw"      : self.draw_card
-        }
-
         # Activate command
         def switcher(command, argument):
-            return dic.get(command)(argument)
+            return self.dic.get(command)(argument)
         try:
             result = switcher(command[0], (command[1]))
             return result
@@ -126,3 +125,7 @@ class Actuator:
 
     def draw_card(self, argument):
         return draw_card.draw_card()
+
+    def help(self, argument):
+        return "The available commands are: " + str(list(self.dic))[1:-1]
+
