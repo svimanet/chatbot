@@ -33,14 +33,14 @@ docker run --rm -it chatbot
 
 #### - Chatbot reads commands as phrases prefixed with exclamation points (e.g., !help)
 #### - Some commands require an argument following the initial phrase! (e.g., !roll 5d50)
-* #### **!urban rat** -Searches and returns urban dictionary for provided word
-* #### **!wiki humans** - Searches and returns urban dictionary for provided word/phrase
+* #### **!urban word** -Searches and returns urban dictionary for provided word
+* #### **!wiki word/phrase** - Searches and returns urban dictionary for provided word/phrase
 * #### **!roll 5d50** - Provides randomized rolls of a 5 sided dice 50 times
 * #### **!flip** - Provides randomized head or tails
 * #### **!joke** - Provides a random joke
 * #### **!chuck** - Provides a random Chuck Norris joke
 * #### **!quote** - Provides a random quote
-* #### **!horoscope libra** - Provides your daily horoscope
+* #### **!horoscope sign** - Provides a daily horoscope corresponding to the provided sign
 * #### **!cat** - Provides a link to a super cute cat pic
 * #### **!dog** - Provides a link to a super cute dog pic
 * #### **!jesus** - Provides a special message from jesus
