@@ -1,6 +1,6 @@
 ## IRC chatbot
 
-#### This software is an automated chatbot to be used with web chatrooms. Users are able to specify a server, port, password, and desired room to connect to the bot to. This chatbot reads chatroom user messages and processes them, producing a desired output.   
+#### This software is an automated chatbot to be used with web chatrooms. Users are able to specify a server, port, password, and desired room to connect to the bot to. This chatbot reads chatroom messages and processes them, producing a desired output in the chatroom.   
 
 ![alt text](https://i.imgur.com/dAwS00J.png)
 
@@ -16,7 +16,7 @@
 
 #### 2. Navigate inside of the newly downloaded directory
 
-#### 3. Optional: configure config.json to a server other than default settings
+#### 3. Optional: configure config.json to settings other than default
 
 #### 4. Build Docker image: 
 
