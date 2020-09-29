@@ -1,6 +1,6 @@
 ## IRC chatbot
 
-#### This software is an automated chatbot to be used with web chatrooms. Users are able to specify a server, port, password, and desired room to connect to the bot to. This chatbot reads chatroom messages and processes them, producing a desired output in the chatroom.   
+#### This software is an automated chatbot to be used with web chatrooms. Users are able to specify a server, port, password, and desired room to connect the bot to. This chatbot reads chatroom messages and processes them, producing a desired output in the chatroom.   
 
 ![alt text](https://i.imgur.com/dAwS00J.png)
 
