@@ -2,7 +2,7 @@
 
 #### This software is an automated chatbot to be used with web chatrooms. Users are able to specify a server, port, password, and desired room to connect to the bot to. This chatbot reads chatroom user messages and processes them, producing a desired output.   
 
-![alt text](https://i.imgur.com/QPeU0sT.png)
+![alt text](https://i.imgur.com/dAwS00J.png)
 
 
 ## Open for hacktober contributions!
@@ -14,9 +14,9 @@
 
 #### 1. Clone/copy this repository to your local machine
 
-#### 2. Navigate to the newly downloaded repository
+#### 2. Navigate inside of the newly downloaded directory
 
-#### 3. Optional: configure default_config.json to a server other than default settings
+#### 3. Optional: configure config.json to a server other than default settings
 
 #### 4. Build Docker image: 
 
@@ -41,8 +41,8 @@ docker run --rm -it chatbot
 * #### **!chuck** - Provides a random Chuck Norris joke
 * #### **!quote** - Provides a random quote
 * #### **!horoscope libra** - Provides your daily horoscope
-* #### **!cat** - Displays a super cute cat pic
-* #### **!dog** - Displays a super cute dog pic
+* #### **!cat** - Provides a link to a super cute cat pic
+* #### **!dog** - Provides a link to a super cute dog pic
 * #### **!jesus** - Provides a special message from jesus
 * #### **!catfact** - Provides a random cat fact
 * #### **!draw** - Provides a card randomly drawn from a deck
