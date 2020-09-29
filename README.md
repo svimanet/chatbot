@@ -12,16 +12,18 @@
 
 ## Instructions
 
-#### 1. Clone the repository to your local machine
+#### 1. Clone/copy this repository to your local machine
 
-#### 2. Optional: configure default_config.json to a server other than default settings
+#### 2. Navigate to the newly downloaded repository
 
-#### 2. Build Docker image: 
+#### 3. Optional: configure default_config.json to a server other than default settings
+
+#### 4. Build Docker image: 
 
 ```shell
 docker build -t chatbot .
 ```
-#### 3. Run chatbot:
+#### 5. Run chatbot:
 
 ```shell
 docker run --rm -it chatbot
@@ -29,7 +31,7 @@ docker run --rm -it chatbot
 
 ## Commands
 
-#### - Chatbot registers commands as phrases prefixed with exclamation points (e.g., !help)
+#### - Chatbot reads commands as phrases prefixed with exclamation points (e.g., !help)
 #### - Some commands require an argument following the initial phrase! (e.g., !roll 5d50)
 * #### **!urban rat** -Searches and returns urban dictionary for provided word
 * #### **!wiki humans** - Searches and returns urban dictionary for provided word/phrase
