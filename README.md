@@ -6,7 +6,7 @@
 
 
 ## Open for hacktober contributions!
-#### - Create modules and add them to actuators, or just make the bot more robust!  
+#### - Create modules and add them to actuators, or just make the bot more robust!
 #### - Find the contribution guidelines [here](CONTRIBUTING.md)  
   
 
