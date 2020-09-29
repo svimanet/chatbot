@@ -48,5 +48,8 @@ docker run --rm -it chatbot
 * #### **!draw** - Provides a card randomly drawn from a deck
 * #### **!help** - Displays available commands
 
+## License
+#### [The Unlicense](LICENCE)
+
 
 
