@@ -32,7 +32,7 @@ docker run --rm -it chatbot
 ## Commands
 
 #### - Chatbot reads commands as phrases prefixed with exclamation points (e.g., !help)
-#### - Some commands require an argument following the initial phrase! (e.g., !roll 5d50)
+#### - Some commands require an argument following the initial phrase (e.g., !roll 5d50)
 * #### **!urban word** -Searches and returns urban dictionary for provided word
 * #### **!wiki word/phrase** - Searches and returns urban dictionary for provided word/phrase
 * #### **!roll 5d50** - Provides randomized rolls of a 5 sided dice 50 times
