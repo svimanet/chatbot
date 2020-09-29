@@ -49,7 +49,7 @@ docker run --rm -it chatbot
 * #### **!help** - Displays available commands
 
 ## License
-#### [The Unlicense](LICENCE)
+#### [The Unlicense](LICENSE)
 
 
 
