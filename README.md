@@ -5,7 +5,9 @@
 ![alt text](https://i.imgur.com/dAwS00J.png)
 
 
-## Open for hacktober contributions!
+## Open for hacktober contributions!  
+
+![alt text](https://img.shields.io/github/contributors-anon/svimanet/chatbot)
 #### - Create modules and add them to actuators, or just make the bot more robust!
 #### - Find the contribution guidelines [here](docs/CONTRIBUTING.md)  
   
