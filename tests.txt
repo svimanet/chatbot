@@ -20,3 +20,4 @@
 !help
 !covidglobal
 !covidcountry India
+!sentiment
