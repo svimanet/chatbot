@@ -86,7 +86,7 @@ class Actuator:
         self.pm = bool
 
     def missing_argument(self):
-        return "Did you forget and argument?"
+        return "Did you forget an argument?"
 
     def urban(self, argument):
         if (argument): return urban_dictionary.urban_term(argument)
