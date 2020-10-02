@@ -10,6 +10,7 @@ from modules import random_cat_fact
 from modules import draw_card
 from modules import wiki_summary
 from modules import covid19
+from modules import sentiment
 
 class Actuator:
     """ Class object for handling command activations. """
@@ -34,7 +35,8 @@ class Actuator:
             "!draw": self.draw_card,
             "!help": self.help,
             "!covidglobal": self.covidglobal,
-            "!covidcountry": self.covidcountry
+            "!covidcountry": self.covidcountry,
+            "!sentiment": self.sentiment
         }
 
     def command(self, msg, nick, pm):
@@ -134,6 +136,10 @@ class Actuator:
 
     def covidcountry(self, argument):
         if (argument): return covid19.get_covid_cases_by_country(argument)
+        return self.missing_argument()
+
+    def sentiment(self, argument):
+        if (argument): return sentiment.get_sentiment(argument)
         return self.missing_argument()
 
     def help(self, argument):
