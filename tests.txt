@@ -20,4 +20,5 @@
 !help
 !covidglobal
 !covidcountry India
-!sentiment
+!sentiment this sentence is very nice
+!sentiment this is not a nice sentence at all
