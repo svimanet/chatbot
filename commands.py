@@ -34,10 +34,33 @@ class Actuator:
             "!catfact": self.cat_fact,
             "!draw": self.draw_card,
             "!help": self.help,
-            "!covidglobal": self.covidglobal,
+             "!covidglobal": self.covidglobal,
             "!covidcountry": self.covidcountry,
             "!sentiment": self.sentiment
         }
+
+    @staticmethod
+    def get_examples():
+        examples = [
+            "!urban word -Searches and returns urban dictionary for provided word",
+            "!wiki word/phrase - Searches and returns urban dictionary for provided word/phrase",
+            "!roll 5d50 - Provides randomized rolls of a 5 sided dice 50 times",
+            "!flip - Provides randomized head or tails",
+            "!joke - Provides a random joke",
+            "!chuck - Provides a random Chuck Norris joke",
+            "!quote - Provides a random quote",
+            "!horoscope sign - Provides a daily horoscope corresponding to the provided sign",
+            "!cat - Provides a link to a super cute cat pic",
+            "!dog - Provides a link to a super cute dog pic",
+            "!jesus - Provides a special message from jesus",
+            "!catfact - Provides a random cat fact",
+            "!draw - Provides a card randomly drawn from a deck",
+            "!help - Displays available commands",
+            "!covidglobal - Provides current covid statistics globally",
+            "!covidcountry Germany - Provides covid statistics for Germany",
+            "!sentiment word/phrase- Provides if the word/phrase is a sentiment or not"
+        ]
+        return examples
 
     def command(self, msg, nick, pm):
         """ Parse and activate command from dict switch. """

@@ -5,6 +5,7 @@ class Testkit:
         self.actuator = commands.Actuator()
         self.module_tests = self.get_module_tests()
         self.run_module_tests()
+        #self.update_readme()
 
 
     def get_module_tests(self):
@@ -34,5 +35,9 @@ class Testkit:
                 print("{}\n".format(e, "\n"))
             num += 1
 
+    def update_readme(self):
+        #TO DO: Complete this, updates readme from list returned with get_examples
+        examples = self.actuator.get_examples()
+        print(examples)
 
 test = Testkit()
