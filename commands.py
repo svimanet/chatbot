@@ -43,23 +43,23 @@ class Actuator:
     def get_examples():
         # examples is a list containing strings in the form "!(command) (Optional Argument) - (Description)"
         examples = [
-            "!urban word - Searches and returns urban dictionary for provided word",
-            "!wiki word/phrase - Searches and returns urban dictionary for provided word/phrase",
-            "!roll 5d50 - Provides randomized rolls of a 5 sided dice 50 times",
-            "!flip - Provides randomized head or tails",
-            "!joke - Provides a random joke",
-            "!chuck - Provides a random Chuck Norris joke",
-            "!quote - Provides a random quote",
-            "!horoscope sign - Provides a daily horoscope corresponding to the provided sign",
-            "!cat - Provides a link to a super cute cat pic",
-            "!dog - Provides a link to a super cute dog pic",
-            "!jesus - Provides a special message from jesus",
-            "!catfact - Provides a random cat fact",
-            "!draw - Provides a card randomly drawn from a deck",
-            "!help - Displays available commands",
-            "!covidglobal - Provides current covid statistics globally",
-            "!covidcountry Germany - Provides covid statistics for Germany",
-            "!sentiment word/phrase- Provides if the word/phrase is a sentiment or not"
+            "!urban word - Searches and returns urban dictionary description of a specified term.",
+            "!wiki word/phrase - Searches and returns wikipedia description of a specified term",
+            "!roll 5d50 - Returns randomized rolls of a 5 sided dice 50 times. Any format of xDy works.",
+            "!flip - Flips a coin and returns heads, tails, or ... edge?",
+            "!joke - Returns a random joke.",
+            "!chuck - Returns a random Chuck Norris joke.",
+            "!quote - Returns the Quote of the Day. Only changes once per day.",
+            "!horoscope libra - Returns a daily horoscope corresponding to the provided zodiac sign.",
+            "!cat - Returns a link to a super cute cat pic.",
+            "!dog - Returns a link to a super cute dog pic.",
+            "!jesus - Returns a special message from our lord and saviour, Jesus Christ",
+            "!catfact - Returns a random cat fact.",
+            "!draw - Returns a random card from a standard 52 card deck.",
+            "!help - Displays available commands.",
+            "!covidglobal - Returns current covid-19 statistics globally.",
+            "!covidcountry Germany - Returns covid-19 statistics for the specified country.",
+            "!sentiment word/phrase - Returns the sentiment value of a specified sentence, based on an API."
         ]
         return examples
 
@@ -168,4 +168,3 @@ class Actuator:
 
     def help(self, argument):
         return "The available commands are: " + str(list(self.dic))[1:-1]
-
