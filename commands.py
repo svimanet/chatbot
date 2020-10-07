@@ -41,8 +41,9 @@ class Actuator:
 
     @staticmethod
     def get_examples():
+        # examples is a list containing strings in the form "!(command) (Optional Argument) - (Description)"
         examples = [
-            "!urban word -Searches and returns urban dictionary for provided word",
+            "!urban word - Searches and returns urban dictionary for provided word",
             "!wiki word/phrase - Searches and returns urban dictionary for provided word/phrase",
             "!roll 5d50 - Provides randomized rolls of a 5 sided dice 50 times",
             "!flip - Provides randomized head or tails",
