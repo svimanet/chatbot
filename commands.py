@@ -34,7 +34,7 @@ class Actuator:
             "!catfact": self.cat_fact,
             "!draw": self.draw_card,
             "!help": self.help,
-             "!covidglobal": self.covidglobal,
+            "!covidglobal": self.covidglobal,
             "!covidcountry": self.covidcountry,
             "!sentiment": self.sentiment
         }
