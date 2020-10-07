@@ -59,7 +59,7 @@ class Actuator:
             "!help - Displays available commands",
             "!covidglobal - Provides current covid statistics globally",
             "!covidcountry Germany - Provides covid statistics for Germany",
-            "!sentiment word/phrase- Provides if the word/phrase is a sentiment or not"
+            "!sentiment word/phrase - Provides if the word/phrase is a sentiment or not"
         ]
         return examples
 
