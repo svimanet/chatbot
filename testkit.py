@@ -2,10 +2,10 @@ import commands
 
 class Testkit:
     def __init__(self):
-        self.actuator = commands.Actuator()
-        self.module_tests = self.get_module_tests()
-        self.run_module_tests()
-        #self.update_readme()
+        #self.actuator = commands.Actuator()
+        #self.module_tests = self.get_module_tests()
+        #self.run_module_tests()
+        self.update_readme()
 
 
     def get_module_tests(self):
@@ -36,8 +36,12 @@ class Testkit:
             num += 1
 
     def update_readme(self):
-        #TO DO: Complete this, updates readme from list returned with get_examples
-        examples = self.actuator.get_examples()
-        print(examples)
+        file_name = "README.md"
+        # TO DO: Complete this, updates readme from list returned with get_examples
+        with open(file_name) as readme_in:
+            for line in readme_in:
+                print(line)
+        #examples = self.actuator.get_examples()
+        #print(examples)
 
 test = Testkit()

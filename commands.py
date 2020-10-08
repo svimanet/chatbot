@@ -51,15 +51,15 @@ class Actuator:
             "!chuck - Returns a random Chuck Norris joke.",
             "!quote - Returns the Quote of the Day. Only changes once per day.",
             "!horoscope libra - Returns a daily horoscope corresponding to the provided zodiac sign.",
-            "!cat - Returns a link to a super cute cat pic",
-            "!dog - Returns a link to a super cute dog pic",
-            "!jesus - Returns a special message from jesus",
-            "!catfact - Returns a random cat fact",
-            "!draw - Returns a card randomly drawn from a deck",
-            "!help - Returns available commands",
-            "!covidglobal - Returns current covid statistics globally",
-            "!covidcountry Germany - Returns covid statistics for Germany",
-            "!sentiment word/phrase - Returns if the word/phrase is a sentiment or not"
+            "!cat - Returns a link to a super cute cat pic.",
+            "!dog - Returns a link to a super cute dog pic.",
+            "!jesus - Returns a special message from jesus.",
+            "!catfact - Returns a random cat fact.",
+            "!draw - Returns a card randomly drawn from a deck.",
+            "!help - Returns available commands.",
+            "!covidglobal - Returns current covid statistics globally.",
+            "!covidcountry Germany - Returns covid statistics for Germany.",
+            "!sentiment word/phrase - Returns if the word/phrase is a sentiment or not."
         ]
         return examples
 
