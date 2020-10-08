@@ -43,23 +43,23 @@ class Actuator:
     def get_examples():
         # examples is a list containing strings in the form "!(command) (Optional Argument) - (Description)"
         examples = [
-            "!urban word - Searches and returns urban dictionary description of a specified term.",
-            "!wiki word/phrase - Searches and returns wikipedia description of a specified term.",
-            "!roll 5d50 - Returns randomized rolls of a 5 sided dice 50 times. Any format of 'XdY' works.",
+            "!urban word - Searches and returns urban dictionary description of a specified term",
+            "!wiki word/phrase - Searches and returns wikipedia description of a specified term",
+            "!roll 5d50 - Returns randomized rolls of a 5 sided dice 50 times. Any format of 'XdY' works",
             "!flip - Flips a coin and returns heads, tails, or ... edge?",
-            "!joke - Returns a random joke.",
-            "!chuck - Returns a random Chuck Norris joke.",
-            "!quote - Returns the Quote of the Day. Only changes once per day.",
-            "!horoscope libra - Returns a daily horoscope corresponding to the provided zodiac sign.",
-            "!cat - Returns a link to a super cute cat pic.",
-            "!dog - Returns a link to a super cute dog pic.",
-            "!jesus - Returns a special message from jesus.",
-            "!catfact - Returns a random cat fact.",
-            "!draw - Returns a card randomly drawn from a deck.",
-            "!help - Returns available commands.",
-            "!covidglobal - Returns current covid statistics globally.",
-            "!covidcountry Germany - Returns covid statistics for Germany.",
-            "!sentiment word/phrase - Returns if the word/phrase is a sentiment or not."
+            "!joke - Returns a random joke",
+            "!chuck - Returns a random Chuck Norris joke",
+            "!quote - Returns the Quote of the Day. Only changes once per day",
+            "!horoscope libra - Returns a daily horoscope corresponding to the provided zodiac sign",
+            "!cat - Returns a link to a super cute cat pic",
+            "!dog - Returns a link to a super cute dog pic",
+            "!jesus - Returns a special message from jesus",
+            "!catfact - Returns a random cat fact",
+            "!draw - Returns a card randomly drawn from a deck",
+            "!help - Returns available commands",
+            "!covidglobal - Returns current covid statistics globally",
+            "!covidcountry Germany - Returns covid statistics for Germany",
+            "!sentiment word/phrase - Returns if the word/phrase is a sentiment or not"
         ]
         return examples
 

@@ -2,7 +2,7 @@ import commands
 
 class Testkit:
     def __init__(self):
-        #self.actuator = commands.Actuator()
+        self.actuator = commands.Actuator()
         #self.module_tests = self.get_module_tests()
         #self.run_module_tests()
         self.update_readme()
@@ -38,10 +38,23 @@ class Testkit:
     def update_readme(self):
         file_name = "README.md"
         # TO DO: Complete this, updates readme from list returned with get_examples
+        examples = self.actuator.get_examples()
+        last_example = ""
         with open(file_name) as readme_in:
             for line in readme_in:
-                print(line)
+                if "**!" in line:
+                    start = line.find(" **") + len(" **")
+                    end = line.find("-") - len("** ")
+                    if (line[start:end] + line[end+len("**"):len(line) -1]) in examples:
+                        print(line[start:end] + line[end+len("**"):len(line)])
+                    #print(line[start:end] + line[end + len("**"):len(line) - 1])
+                    #print(examples[12])
+
+
+
+
         #examples = self.actuator.get_examples()
         #print(examples)
+
 
 test = Testkit()
