@@ -41,7 +41,8 @@ class Actuator:
 
     @staticmethod
     def get_examples():
-        # examples is a list containing strings in the form "!(command) (Optional Argument) - (Description)"
+        """This class returns examples, a list utilized to auto-update the readme to reflect module commands/examples"""
+
         examples = [
             "!urban word - Searches and returns urban dictionary description of a specified term",
             "!wiki word/phrase - Searches and returns wikipedia description of a specified term",
