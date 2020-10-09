@@ -46,13 +46,13 @@ docker run --rm -it chatbot
 * #### **!horoscope libra** - Returns a daily horoscope corresponding to the provided zodiac sign
 * #### **!cat** - Returns a link to a super cute cat pic
 * #### **!dog** - Returns a link to a super cute dog pic
-* #### **!jesus** - Returns a special message from jesus
+* #### **!jesus** - Returns a special message from our lord and saviour, Jesus Christ
 * #### **!catfact** - Returns a random cat fact
 * #### **!draw** - Returns a card randomly drawn from a deck
 * #### **!help** - Returns available commands
-* #### **!covidglobal** - Returns current covid statistics globally
-* #### **!covidcountry Germany** - Returns covid statistics for Germany
-* #### **!sentiment word/phrase** - Returns if the word/phrase is a sentiment or not
+* #### **!covidglobal** - Returns current covid-19 statistics globally
+* #### **!covidcountry Germany** - Returns covid-19 statistics for the specified country
+* #### **!sentiment word/phrase** - Returns the sentiment value of a specified sentence, based on an API
 
 ## License
 #### [The Unlicense](LICENSE)
