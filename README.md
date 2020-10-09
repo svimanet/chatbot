@@ -49,7 +49,6 @@ docker run --rm -it chatbot
 * #### **!jesus** - Returns a special message from our lord and saviour, Jesus Christ
 * #### **!catfact** - Returns a random cat fact
 * #### **!draw** - Returns a card randomly drawn from a deck
-* #### **!help** - Returns available commands
 * #### **!covidglobal** - Returns current covid-19 statistics globally
 * #### **!covidcountry Germany** - Returns covid-19 statistics for the specified country
 * #### **!sentiment word/phrase** - Returns the sentiment value of a specified sentence, based on an API
