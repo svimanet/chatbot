@@ -35,6 +35,7 @@ docker run --rm -it chatbot
 
 #### - Chatbot reads commands as phrases prefixed with exclamation points (e.g., !help)
 #### - Some commands require an argument following the initial phrase (e.g., !roll 5d50)
+* #### **!help**  - Returns available commands
 * #### **!urban word** - Searches and returns urban dictionary description of a specified term
 * #### **!wiki word/phrase** - Searches and returns wikipedia description of a specified term
 * #### **!roll 5d50** - Returns randomized rolls of a 5 sided dice 50 times. Any format of 'XdY' works
@@ -42,16 +43,16 @@ docker run --rm -it chatbot
 * #### **!joke** - Returns a random joke
 * #### **!chuck** - Returns a random Chuck Norris joke
 * #### **!quote** - Returns the Quote of the Day. Only changes once per day
-* #### **!horoscope sign** - Returns a daily horoscope corresponding to the provided zodiac sign
+* #### **!horoscope libra** - Returns a daily horoscope corresponding to the provided zodiac sign
 * #### **!cat** - Returns a link to a super cute cat pic
 * #### **!dog** - Returns a link to a super cute dog pic
 * #### **!jesus** - Returns a special message from jesus
 * #### **!catfact** - Returns a random cat fact
 * #### **!draw** - Returns a card randomly drawn from a deck
 * #### **!help** - Returns available commands
+* #### **!covidglobal** - Returns current covid statistics globally
+* #### **!covidcountry Germany** - Returns covid statistics for Germany
+* #### **!sentiment word/phrase** - Returns if the word/phrase is a sentiment or not
 
 ## License
 #### [The Unlicense](LICENSE)
-
-
-

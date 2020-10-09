@@ -3,8 +3,8 @@ import commands
 class Testkit:
     def __init__(self):
         self.actuator = commands.Actuator()
-        #self.module_tests = self.get_module_tests()
-        #self.run_module_tests()
+        self.module_tests = self.get_module_tests()
+        self.run_module_tests()
         self.update_readme()
 
 
@@ -36,25 +36,44 @@ class Testkit:
             num += 1
 
     def update_readme(self):
+        """This class automatically updates the readme to reflect added modules that may not be in the readme yet"""
+        command_examples = self.actuator.get_examples()
         file_name = "README.md"
-        # TO DO: Complete this, updates readme from list returned with get_examples
-        examples = self.actuator.get_examples()
-        last_example = ""
-        with open(file_name) as readme_in:
+        # contents of the readme
+        contents = ""
+        # counts of total lines in file
+        file_lines_count = 0
+        # index of the last command found in the readme
+        last_command_line_index = 0
+
+        with open(file_name, 'r') as readme_in:
             for line in readme_in:
+                # if the line is a command/example
                 if "**!" in line:
+                    # find indexes of the !command in this line
                     start = line.find(" **") + len(" **")
                     end = line.find("-") - len("** ")
-                    if (line[start:end] + line[end+len("**"):len(line) -1]) in examples:
-                        print(line[start:end] + line[end+len("**"):len(line)])
-                    #print(line[start:end] + line[end + len("**"):len(line) - 1])
-                    #print(examples[12])
+                    # Removes markdown formatting and searches if the command found in the readme is in examples
+                    if (line[start:end] + line[end+len("**"):len(line) - 1]) in command_examples:
+                        # removes  command from the list so that only commands that arent added to the readme remain
+                        command_examples.remove(line[start:end] + line[end+len("**"):len(line) - 1])
+                        # saves the last line number that contains a command/example
+                        last_command_line_index = file_lines_count
+                file_lines_count += 1
+            # go to the first line of the file and save the contents of the file
+            readme_in.seek(0)
+            contents = readme_in.readlines()
 
+        # add new commands and examples to the readme
+        for example in command_examples:
+            end = example.find("-") - len(" ")
+            contents.insert(last_command_line_index + 1, "* #### **" + example[:end] + "**" + example[end:] + "\n")
+            last_command_line_index += 1
 
-
-
-        #examples = self.actuator.get_examples()
-        #print(examples)
-
+        # write to the file
+        with open(file_name, "w") as readme_out:
+            contents = "".join(contents)
+            readme_out.write(contents)
+            readme_out.close()
 
 test = Testkit()
