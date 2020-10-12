@@ -1,6 +1,6 @@
 ## IRC chatbot
 
-#### This software is an automated chatbot to be used with web chatrooms. Users are able to specify a server, port, password, and desired room to connect the bot to. This chatbot reads chatroom messages and processes them, producing a desired output in the chatroom.   
+#### This software is an automated IRC chatbot to be used with web chatrooms. Users are able to specify a server, port, password, and desired room to connect the bot to. This chatbot reads chatroom messages and processes them, producing a desired output in the chatroom.   
 
 ![alt text](https://i.imgur.com/dAwS00J.png)
 
@@ -35,23 +35,23 @@ docker run --rm -it chatbot
 
 #### - Chatbot reads commands as phrases prefixed with exclamation points (e.g., !help)
 #### - Some commands require an argument following the initial phrase (e.g., !roll 5d50)
-* #### **!urban word** -Searches and returns urban dictionary for provided word
-* #### **!wiki word/phrase** - Searches and returns urban dictionary for provided word/phrase
-* #### **!roll 5d50** - Provides randomized rolls of a 5 sided dice 50 times
-* #### **!flip** - Provides randomized head or tails
-* #### **!joke** - Provides a random joke
-* #### **!chuck** - Provides a random Chuck Norris joke
-* #### **!quote** - Provides a random quote
-* #### **!horoscope sign** - Provides a daily horoscope corresponding to the provided sign
-* #### **!cat** - Provides a link to a super cute cat pic
-* #### **!dog** - Provides a link to a super cute dog pic
-* #### **!jesus** - Provides a special message from jesus
-* #### **!catfact** - Provides a random cat fact
-* #### **!draw** - Provides a card randomly drawn from a deck
-* #### **!help** - Displays available commands
+* #### **!help** - Returns available commands
+* #### **!urban word** - Searches and returns urban dictionary description of a specified term
+* #### **!wiki word/phrase** - Searches and returns wikipedia description of a specified term
+* #### **!roll 5d50** - Returns randomized rolls of a 5 sided dice 50 times. Any format of 'XdY' works
+* #### **!flip** - Flips a coin and returns heads, tails, or ... edge?
+* #### **!joke** - Returns a random joke
+* #### **!chuck** - Returns a random Chuck Norris joke
+* #### **!quote** - Returns the Quote of the Day. Only changes once per day
+* #### **!horoscope libra** - Returns a daily horoscope corresponding to the provided zodiac sign
+* #### **!cat** - Returns a link to a super cute cat pic
+* #### **!dog** - Returns a link to a super cute dog pic
+* #### **!jesus** - Returns a special message from our lord and saviour, Jesus Christ
+* #### **!catfact** - Returns a random cat fact
+* #### **!draw** - Returns a card randomly drawn from a deck
+* #### **!covidglobal** - Returns current covid-19 statistics globally
+* #### **!covidcountry Germany** - Returns covid-19 statistics for the specified country
+* #### **!sentiment word/phrase** - Returns the sentiment value of a specified sentence, based on an API
 
 ## License
 #### [The Unlicense](LICENSE)
-
-
-
