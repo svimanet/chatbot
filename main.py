@@ -6,6 +6,7 @@ import json
 
 from commands import Actuator
 
+
 class Bot:
     def __init__(self):
         self.irc_socket = False
