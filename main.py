@@ -38,50 +38,54 @@ class Bot:
         for k, v in conf.items():
             setattr(self, k, v)
 
-
     def server_connect(self):
         """ Starts server connection to specified self.server. """
-        #try:
+        # try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((self.server, int(self.port)))
         self.irc_socket = ssl.wrap_socket(sock)
-        #except: # TODO find out which exception
-
+        # except: # TODO find out which exception
 
     def sock_send(self, msg):
         """ Sends data through socket. Does not send socks. 
         :param msg: The String content to send through socket. """
         msg += '\r\n'  # New line counts as 'return/exec ..'
+        # try:
         self.irc_socket.send(msg.encode('utf-8'))
         print("socket_msg:", msg)
-
 
     def send_msg(self, msg, nick, pm):
         """ Sends a Private Message or a message to the channel its connected to.
         :param msg: String message to send.
         :param nick: nick of user that sent msg, and nick to respond if PM.
         :param pm: Boolean if its supposed to send privately. """
-        if pm: self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(nick, msg).encode('utf-8'))
-        else: self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(self.channel, msg).encode('utf-8'))
-
+        if pm:
+            # try:
+            self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(nick, msg).encode('utf-8'))
+        else:
+            # try:
+            self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(self.channel, msg).encode('utf-8'))
 
     def ping_pong(self, data):
         """ Responds PONG to server Pings. 
         :param data: raw socket data from server. """
         if "PRIVMSG" not in data and "PING" in data.split(':')[0]:
+            # try:
             self.sock_send("PONG {}".format(data.split(':')[1]))
-
 
     def join_channel(self, data):
         """ Joins a the specified server channel, under startup.
         :param data: Raw socket data from server. """
         if "PRIVMSG" not in data and "266" in data:
-            if self.password: msg = "JOIN {} {}".format(self.channel, self.password)
-            else: msg = "JOIN {}".format(self.channel)
+            if self.password:
+                # try:
+                msg = "JOIN {} {}".format(self.channel, self.password)
+            else:
+                # try:
+                msg = "JOIN {}".format(self.channel)
             self.sock_send(msg)
             return True
         return False
-
 
     def check_errors(self, data):
         """ Checks for IRC errors, and one day it will handle it correctly.
@@ -89,7 +93,6 @@ class Bot:
         if "PRIVMSG" not in data and "ERR" in data:
             print("ERROR YALL")
             # TODO: Actual error handling
-
 
     def parse_msg(self, data):
         """ Parses messages to check for user messages, and handle them correctly.
@@ -107,7 +110,6 @@ class Bot:
                 pm = True
             if result: self.send_msg(result, nick, pm)
 
-
     def start_bot(self):
         """ Starts the bot and connects to channel. Then goes into actuator mode. """
         self.sock_send("USER {0} {1} {1} {2}".format(self.nick, self.hostname, self.name))
@@ -124,7 +126,6 @@ class Bot:
 
         print("#############\nStartup success\n#############")
         self.run()
-
 
     def run(self):
         """ Keeps the bot running after startup and channel join. """
