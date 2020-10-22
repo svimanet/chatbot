@@ -4,6 +4,7 @@ import ssl
 import os
 import json
 
+# import class for handling commands
 from commands import Actuator
 
 
