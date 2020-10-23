@@ -40,19 +40,24 @@ class Bot:
 
     def server_connect(self):
         """ Starts server connection to specified self.server. """
-        # try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect((self.server, int(self.port)))
-        self.irc_socket = ssl.wrap_socket(sock)
-        # except: # TODO find out which exception
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.connect((self.server, int(self.port)))
+            self.irc_socket = ssl.wrap_socket(sock)
+        except socket.error as error:
+            print("Error connecting to server:", error)
+            exit()
 
     def sock_send(self, msg):
         """ Sends data through socket. Does not send socks. 
         :param msg: The String content to send through socket. """
         msg += '\r\n'  # New line counts as 'return/exec ..'
-        # try:
-        self.irc_socket.send(msg.encode('utf-8'))
-        print("socket_msg:", msg)
+        try:
+            self.irc_socket.send(msg.encode('utf-8'))
+            print("socket_msg:", msg)
+        except socket.error as error:
+            print("Error sending data through sock_send method:", error)
+            exit()
 
     def send_msg(self, msg, nick, pm):
         """ Sends a Private Message or a message to the channel its connected to.
@@ -60,28 +65,35 @@ class Bot:
         :param nick: nick of user that sent msg, and nick to respond if PM.
         :param pm: Boolean if its supposed to send privately. """
         if pm:
-            # try:
-            self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(nick, msg).encode('utf-8'))
+            try:
+                self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(nick, msg).encode('utf-8'))
+            except socket.error as error:
+                print("Error sending private message through send_msg method:", error)
+                exit()
         else:
-            # try:
-            self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(self.channel, msg).encode('utf-8'))
+            try:
+                self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(self.channel, msg).encode('utf-8'))
+            except socket.error as error:
+                print("Error sending message through not pm send_msg method:", error)
+                exit()
 
     def ping_pong(self, data):
         """ Responds PONG to server Pings. 
         :param data: raw socket data from server. """
         if "PRIVMSG" not in data and "PING" in data.split(':')[0]:
-            # try:
-            self.sock_send("PONG {}".format(data.split(':')[1]))
+            try:
+                self.sock_send("PONG {}".format(data.split(':')[1]))
+            except socket.error as error:
+                print("Error sending pong:", error)
+                exit()
 
     def join_channel(self, data):
         """ Joins a the specified server channel, under startup.
         :param data: Raw socket data from server. """
         if "PRIVMSG" not in data and "266" in data:
             if self.password:
-                # try:
                 msg = "JOIN {} {}".format(self.channel, self.password)
             else:
-                # try:
                 msg = "JOIN {}".format(self.channel)
             self.sock_send(msg)
             return True
@@ -108,7 +120,8 @@ class Bot:
             else:
                 result = self.actuator.command(message, nick, True)
                 pm = True
-            if result: self.send_msg(result, nick, pm)
+            if result:
+                self.send_msg(result, nick, pm)
 
     def start_bot(self):
         """ Starts the bot and connects to channel. Then goes into actuator mode. """
@@ -118,11 +131,16 @@ class Bot:
         joined = False
         starting = True
         while starting:
-            data = self.irc_socket.recv(1024).decode('utf-8')
+            try:
+                data = self.irc_socket.recv(1024).decode('utf-8')
+            except socket.error as error:
+                print("Error receiving message in start_bot method:", error)
+                exit()
             print("Startup Recv = ", data)
             self.ping_pong(data)
             joined = self.join_channel(data)
-            if joined: starting = False
+            if joined:
+                starting = False
 
         print("#############\nStartup success\n#############")
         self.run()
@@ -131,7 +149,11 @@ class Bot:
         """ Keeps the bot running after startup and channel join. """
         running = True
         while running:
-            data = self.irc_socket.recv(1024).decode('utf-8')
+            try:
+                data = self.irc_socket.recv(1024).decode('utf-8')
+            except socket.error as error:
+                print("Error receiving message in run method:", error)
+                exit()
             print("Recv = ", data.replace("\r\n", ""))
             self.ping_pong(data)
             self.check_errors(data)
