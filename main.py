@@ -8,6 +8,15 @@ import logging
 # import class for handling commands
 from commands import Actuator
 
+# Create a logging instance
+logger = logging.getLogger('mainSocketLogging')
+logger.setLevel(logging.INFO)
+# Assign a file-handler to the logging instance and set the level at which it logs
+fh = logging.FileHandler("log.txt")
+fh.setLevel(logging.INFO)
+# add file handler to logger
+logger.addHandler(fh)
+
 
 class Bot:
     def __init__(self):
@@ -34,7 +43,7 @@ class Bot:
                 json.dump(conf, open(conf_fp, 'w+'), indent=2)
                 print("Using default config. Edit config.json to change connection details")
         except Exception as e:
-            print("Exiting program. Could not load config -> ", e)
+            logger.exception("Exiting program. Could not load config -> ", e)
             exit()
         for k, v in conf.items():
             setattr(self, k, v)
@@ -45,8 +54,8 @@ class Bot:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((self.server, int(self.port)))
             self.irc_socket = ssl.wrap_socket(sock)
-        except socket.error as error:
-            print("Error connecting to server:", error)
+        except socket.error as e:
+            logger.exception("Error connecting to server -> ", e)
             exit()
 
     def sock_send(self, msg):
@@ -56,8 +65,8 @@ class Bot:
         try:
             self.irc_socket.send(msg.encode('utf-8'))
             print("socket_msg:", msg)
-        except socket.error as error:
-            print("Error sending data through sock_send method:", error)
+        except socket.error as e:
+            logger.exception("Error sending data through sock_send method -> ", e)
             exit()
 
     def send_msg(self, msg, nick, pm):
@@ -68,14 +77,14 @@ class Bot:
         if pm:
             try:
                 self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(nick, msg).encode('utf-8'))
-            except socket.error as error:
-                print("Error sending private message through send_msg method:", error)
+            except socket.error as e:
+                logger.exception("Error sending private message through send_msg method -> ", e)
                 exit()
         else:
             try:
                 self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(self.channel, msg).encode('utf-8'))
-            except socket.error as error:
-                print("Error sending message through not pm send_msg method:", error)
+            except socket.error as e:
+                logger.exception("Error sending message through not pm send_msg method -> ", e)
                 exit()
 
     def ping_pong(self, data):
@@ -84,8 +93,8 @@ class Bot:
         if "PRIVMSG" not in data and "PING" in data.split(':')[0]:
             try:
                 self.sock_send("PONG {}".format(data.split(':')[1]))
-            except socket.error as error:
-                print("Error sending pong:", error)
+            except socket.error as e:
+                logger.exception("Error sending pong -> ", e)
                 exit()
 
     def join_channel(self, data):
@@ -134,8 +143,8 @@ class Bot:
         while starting:
             try:
                 data = self.irc_socket.recv(1024).decode('utf-8')
-            except socket.error as error:
-                print("Error receiving message in start_bot method:", error)
+            except socket.error as e:
+                logger.exception("Error receiving message in start_bot method -> ", e)
                 exit()
             print("Startup Recv = ", data)
             self.ping_pong(data)
@@ -152,8 +161,8 @@ class Bot:
         while running:
             try:
                 data = self.irc_socket.recv(1024).decode('utf-8')
-            except socket.error as error:
-                print("Error receiving message in run method:", error)
+            except socket.error as e:
+                logger.exception("Error receiving message in run method -> ", e)
                 exit()
             print("Recv = ", data.replace("\r\n", ""))
             self.ping_pong(data)
