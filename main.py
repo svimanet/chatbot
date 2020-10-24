@@ -3,6 +3,7 @@ import socket
 import ssl
 import os
 import json
+import logging
 
 # import class for handling commands
 from commands import Actuator
