@@ -4,20 +4,9 @@ import ssl
 import os
 import json
 
-# Import modules
-from modules import urban_dictionary
-from modules import roll
-from modules import jokes
-from modules import quote_day
-from modules import horoscope
-from modules import random_cat
-from modules import random_dog
-from modules import jesus
-from modules import random_cat_fact
-from modules import draw_card
-from modules import wiki_summary
-
+# import class for handling commands
 from commands import Actuator
+
 
 class Bot:
     def __init__(self):
