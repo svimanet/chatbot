@@ -19,5 +19,3 @@ def get_sentiment(sentence):
     sentence_polarity = response_json['result']['polarity']
 
     return f'The sentence is {sentence_type} and its polarity is {sentence_polarity}'
-
-print(get_sentiment("test sentence"))
