@@ -5,7 +5,7 @@ def get_sentiment(sentence):
 
     # Base URL for the sentiment analysis API
     url = 'https://sentim-api.herokuapp.com/api/v1/'
-    
+
     # Setting headers and body as specified by the API docs
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
     body = {'text': sentence}
@@ -19,3 +19,5 @@ def get_sentiment(sentence):
     sentence_polarity = response_json['result']['polarity']
 
     return f'The sentence is {sentence_type} and its polarity is {sentence_polarity}'
+
+print(get_sentiment("test sentence"))
