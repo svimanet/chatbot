@@ -9,10 +9,10 @@ import logging
 from commands import Actuator
 
 # Create a logging instance
-logger = logging.getLogger('mainSocketLogging')
+logger = logging.getLogger('mainErrorLogging')
 logger.setLevel(logging.INFO)
 # Assign a file-handler to the logging instance and set the level at which it logs
-fh = logging.FileHandler("log.txt")
+fh = logging.FileHandler("error_log.txt")
 fh.setLevel(logging.INFO)
 # add file handler to logger
 logger.addHandler(fh)
