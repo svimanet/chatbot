@@ -11,6 +11,7 @@ from modules import draw_card
 from modules import wiki_summary
 from modules import covid19
 from modules import sentiment
+from modules import today
 
 class Actuator:
     """ Class object for handling command activations. """
@@ -36,7 +37,9 @@ class Actuator:
             "!help": self.help,
             "!covidglobal": self.covidglobal,
             "!covidcountry": self.covidcountry,
-            "!sentiment": self.sentiment
+            "!sentiment": self.sentiment,
+            "!today": self.today,
+            "!todayall": self.todayall
         }
 
     @staticmethod
@@ -61,6 +64,8 @@ class Actuator:
             "!covidglobal - Returns current covid-19 statistics globally",
             "!covidcountry Germany - Returns covid-19 statistics for the specified country",
             "!sentiment word/phrase - Returns the sentiment value of a specified sentence, based on an API",
+            "!today - Retrieves all holidays for today and returns one at random",
+            "!todayall - Returns all holidays for today"
         ]
         return examples
 
@@ -167,6 +172,11 @@ class Actuator:
         if (argument): return sentiment.get_sentiment(argument)
         return self.missing_argument()
 
+    def today(self, argument):
+        return today.get_todays_day()
+
+    def todayall(self, argument):
+        return today.get_todays_day_all()
+
     def help(self, argument):
         return "The available commands are: " + str(list(self.dic))[1:-1]
-

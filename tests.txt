@@ -22,3 +22,5 @@
 !covidcountry India
 !sentiment this sentence is very nice
 !sentiment this is not a nice sentence at all
+!today
+!todayall
