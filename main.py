@@ -44,6 +44,7 @@ class Bot:
                 print("Using default config. Edit config.json to change connection details")
         except Exception as e:
             logger.exception("Exiting program. Could not load config -> " + str(e))
+            print("Exiting program. Could not load config -> " + str(e))
             exit()
         for k, v in conf.items():
             setattr(self, k, v)
@@ -56,6 +57,7 @@ class Bot:
             self.irc_socket = ssl.wrap_socket(sock)
         except socket.error as e:
             logger.exception("Error connecting to server -> " + str(e))
+            print("Error connecting to server -> " + str(e))
             exit()
 
     def sock_send(self, msg):
@@ -67,6 +69,7 @@ class Bot:
             print("socket_msg:", msg)
         except socket.error as e:
             logger.exception("Error sending data through sock_send method -> " + str(e))
+            print("Error sending data through sock_send method -> " + str(e))
             exit()
 
     def send_msg(self, msg, nick, pm):
@@ -79,12 +82,14 @@ class Bot:
                 self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(nick, msg).encode('utf-8'))
             except socket.error as e:
                 logger.exception("Error sending private message through send_msg method -> " + str(e))
+                print("Error sending private message through send_msg method -> " + str(e))
                 exit()
         else:
             try:
                 self.irc_socket.send("PRIVMSG {0} :{1}\r\n".format(self.channel, msg).encode('utf-8'))
             except socket.error as e:
                 logger.exception("Error sending message through not pm send_msg method -> " + str(e))
+                print("Error sending message through not pm send_msg method -> " + str(e))
                 exit()
 
     def ping_pong(self, data):
@@ -95,6 +100,7 @@ class Bot:
                 self.sock_send("PONG {}".format(data.split(':')[1]))
             except socket.error as e:
                 logger.exception("Error sending pong -> " + str(e))
+                print("Error sending pong -> " + str(e))
                 exit()
 
     def join_channel(self, data):
@@ -147,6 +153,7 @@ class Bot:
                     continue
             except socket.error as e:
                 logger.exception("Error receiving message in start_bot method -> " + str(e))
+                print("Error receiving message in start_bot method -> " + str(e))
                 exit()
             print("Startup Recv = ", data)
             self.ping_pong(data)
@@ -167,6 +174,7 @@ class Bot:
                     continue
             except socket.error as e:
                 logger.exception("Error receiving message in run method -> " + str(e))
+                print("Error receiving message in run method -> " + str(e))
                 exit()
             print("Recv = ", data.replace("\r\n", ""))
             self.ping_pong(data)
