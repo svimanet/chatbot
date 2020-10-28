@@ -5,7 +5,7 @@ def get_sentiment(sentence):
 
     # Base URL for the sentiment analysis API
     url = 'https://sentim-api.herokuapp.com/api/v1/'
-    
+
     # Setting headers and body as specified by the API docs
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
     body = {'text': sentence}

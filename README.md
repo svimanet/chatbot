@@ -52,6 +52,8 @@ docker run --rm -it chatbot
 * #### **!covidglobal** - Returns current covid-19 statistics globally
 * #### **!covidcountry Germany** - Returns covid-19 statistics for the specified country
 * #### **!sentiment word/phrase** - Returns the sentiment value of a specified sentence, based on an API
+* #### **!today** - Retrieves all holidays for today and returns one at random
+* #### **!todayall** - Returns all holidays for today
 
 ## License
 #### [The Unlicense](LICENSE)
