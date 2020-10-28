@@ -143,6 +143,8 @@ class Bot:
         while starting:
             try:
                 data = self.irc_socket.recv(1024).decode('utf-8')
+                if data is None:
+                    continue
             except socket.error as e:
                 logger.exception("Error receiving message in start_bot method -> " + str(e))
                 exit()
@@ -161,6 +163,8 @@ class Bot:
         while running:
             try:
                 data = self.irc_socket.recv(1024).decode('utf-8')
+                if data is None:
+                    continue
             except socket.error as e:
                 logger.exception("Error receiving message in run method -> " + str(e))
                 exit()
