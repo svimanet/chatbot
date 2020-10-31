@@ -19,6 +19,7 @@
 #### 2. Navigate inside of the newly downloaded directory
 
 #### 3. Optional: configure config.json to settings other than default
+Other configuration values may also be added to this file.
 
 #### 4. Build Docker image: 
 
@@ -57,3 +58,4 @@ docker run --rm -it chatbot
 
 ## License
 #### [The Unlicense](LICENSE)
+TODO: Add licence
