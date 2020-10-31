@@ -6,13 +6,13 @@ import json
 
 #print(rq.text)
 
-def jesus():
+def trump():
     try:
         url = 'https://tronalddump.io/random/quote'
         response = rq.get(url)
         response_json = json.loads(response.content)
-        return "Have a blessed day: " + response_json.get('value')
+        return "Trump: " + response_json.get('value')
     except:
-        return "Jesus says Good day!"
+        return "I'm a perfect physical specimen!"
 
 

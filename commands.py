@@ -5,7 +5,7 @@ from modules import quote_day
 from modules import horoscope
 from modules import random_cat
 from modules import random_dog
-from modules import jesus
+from modules import trump
 from modules import random_cat_fact
 from modules import draw_card
 from modules import wiki_summary
@@ -32,7 +32,7 @@ class Actuator:
             "!horoscope": self.horoscope,
             "!cat": self.cat,
             "!dog": self.dog,
-            "!jesus": self.jesus,
+            "!trump": self.trump,
             "!catfact": self.cat_fact,
             "!draw": self.draw_card,
             "!help": self.help,
@@ -59,7 +59,7 @@ class Actuator:
             "!horoscope libra - Returns a daily horoscope corresponding to the provided zodiac sign",
             "!cat - Returns a link to a super cute cat pic",
             "!dog - Returns a link to a super cute dog pic",
-            "!jesus - Returns a special message from our lord and saviour, Jesus Christ",
+            "!trump - Returns a special message from our lord and saviour, Trump Christ",
             "!catfact - Returns a random cat fact",
             "!draw - Returns a card randomly drawn from a deck",
             "!help - Returns available commands",
@@ -157,8 +157,8 @@ class Actuator:
     def dog(self, argument):
         return random_dog.random_dog_pic()
 
-    def jesus(self, argument):
-        return jesus.jesus()
+    def trump(self, argument):
+        return trump.trump()
 
     def cat_fact(self, argument):
         return random_cat_fact.random_cat_facts()
