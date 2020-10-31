@@ -1,9 +1,11 @@
 import requests
 import json
 
-api_url = "http://ukenummer.no/json"
 
-def fetch_weekday():
+def fetch_weeknumber(weeknumber):
+    api_url = "http://ukenummer.no/json"
+    if weeknumber:
+        api_url = "{}/{}".format(api_url, weeknumber)
     try:
         r = requests.get(api_url)
         response = json.loads(r.text)
