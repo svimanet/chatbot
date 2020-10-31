@@ -81,7 +81,9 @@ class Actuator:
 
         # Activate command
         def switcher(command, argument):
-            return self.dic.get(command)(argument)
+            if command in self.dic.keys():
+                return self.dic.get(command)(argument)
+
         try:
             result = switcher(command[0], (command[1]))
             return result
