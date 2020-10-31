@@ -24,3 +24,4 @@
 !sentiment this is not a nice sentence at all
 !today
 !todayall
+!weekno
