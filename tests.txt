@@ -25,3 +25,4 @@
 !today
 !todayall
 !weekno
+!weekno 10

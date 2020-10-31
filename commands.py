@@ -12,7 +12,7 @@ from modules import wiki_summary
 from modules import covid19
 from modules import sentiment
 from modules import today
-from modules import weekday
+from modules import weeknumber
 
 class Actuator:
     """ Class object for handling command activations. """
@@ -41,7 +41,7 @@ class Actuator:
             "!sentiment": self.sentiment,
             "!today": self.today,
             "!todayall": self.todayall,
-            "!weekno": self.get_weekday
+            "!weekno": self.get_weeknumber
         }
 
     @staticmethod
@@ -182,9 +182,9 @@ class Actuator:
 
     def todayall(self, argument):
         return today.get_todays_day_all()
-    
-    def get_weekday(self, argument):
-        return weekday.fetch_weekday()
+        
+    def get_weeknumber(self, argument):
+        return weeknumber.fetch_weeknumber(argument)
 
     def help(self, argument):
         return "The available commands are: " + str(list(self.dic))[1:-1]
