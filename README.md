@@ -54,6 +54,7 @@ docker run --rm -it chatbot
 * #### **!sentiment word/phrase** - Returns the sentiment value of a specified sentence, based on an API
 * #### **!today** - Retrieves all holidays for today and returns one at random
 * #### **!todayall** - Returns all holidays for today
+* #### **!weekno** - Returns the current week number as well as the from and to date for the current week
 
 ## License
 #### [The Unlicense](LICENSE)
