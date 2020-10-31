@@ -20,7 +20,7 @@
 
 #### 3. Optional: configure config.json to settings other than default
 
-#### 4. Build Docker image: 
+#### 4. Build [Docker](https://www.docker.com/) image: 
 
 ```shell
 docker build -t chatbot .
