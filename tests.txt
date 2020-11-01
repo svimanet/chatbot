@@ -14,7 +14,7 @@
 !horoscope
 !cat
 !dog
-!jesus
+!trump
 !catfact
 !draw
 !help
