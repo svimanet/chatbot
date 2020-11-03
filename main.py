@@ -14,7 +14,7 @@ class Bot:
         self.irc_socket = False
         self.actuator = Actuator()
 
-        # Create a logger instance to log errors
+        # Instantiate an error logger
         self.create_logger_instance()
 
         # Load config
@@ -40,19 +40,20 @@ class Bot:
             self.logger.exception("Could not load config -> " + str(e))
             print("Could not load config -> " + str(e))
             exit()
-
         for k, v in conf.items():
             setattr(self, k, v)
 
     def create_logger_instance(self):
-        """Creates a logger instance"""
-        self.logger = logging.getLogger('mainErrorLogging')
+        """Creates an error logger"""
+        self.logger = logging.getLogger('Main Error Logging')
         self.logger.setLevel(logging.INFO)
         # Assign a file-handler to the logging instance and set the level at which it logs
-        fh = logging.FileHandler("error_log.txt")
-        fh.setLevel(logging.INFO)
+        file_error_handler = logging.FileHandler("error_log.txt")
+        formatter = logging.Formatter('%(asctime)s: %(name)s: %(message)s')
+        file_error_handler.setFormatter(formatter)
+        file_error_handler.setLevel(logging.INFO)
         # add file handler to logger
-        self.logger.addHandler(fh)
+        self.logger.addHandler(file_error_handler)
 
     def server_connect(self):
         """ Starts server connection to specified self.server. """
